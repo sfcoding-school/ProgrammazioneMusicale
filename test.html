@@ -1,0 +1,45 @@
+
+<html>
+<head>
+<title>HTML5 audio experiment - JavaScript sound synthesis and audio encoding</title>
+</head>
+<body>
+<script src="riffwave.js"></script>
+<style>
+body { font-family: "Droid Sans"; margin: 16px 32px; }
+pre { font-family: "Droid Sans Mono"; }
+button { font-family: "Droid Sans"; font-size: 150%; }
+</style>
+<script>
+
+var wave = new RIFFWAVE();
+wave.header.sampleRate = 44100; // Set sample rate to 44KHz
+wave.header.numChannels = 1;
+
+  var data = [];
+  var i = 0;
+  while (i<100000) {
+    var t = i/wave.header.sampleRate;
+    data[i++] = 128+Math.round(127*Math.sin(440*t*2*Math.PI));
+  }
+
+  wave.Make(data);
+  var audio = new Audio(wave.dataURI);
+
+function play(audio) {
+  if (!audio.paused) { // if playing stop and rewind
+    audio.pause();
+    audio.currentTime = 0;
+  }
+  audio.play();
+}
+
+</script>
+
+
+<h2>Some tests</h2>
+
+<button onmousedown="play(audio);">La</button>
+
+</body>
+</html>

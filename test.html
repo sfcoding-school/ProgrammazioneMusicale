@@ -1,10 +1,9 @@
-
 <html>
 <head>
-<title>HTML5 audio experiment - JavaScript sound synthesis and audio encoding</title>
+<title>Programmazione Musicale</title>
+<script src="riffwave.js"></script>
 </head>
 <body>
-<script src="riffwave.js"></script>
 <style>
 body { font-family: "Droid Sans"; margin: 16px 32px; }
 pre { font-family: "Droid Sans Mono"; }
@@ -18,13 +17,29 @@ wave.header.numChannels = 1;
 
   var data = [];
   var i = 0;
-  while (i<100000) {
+  while (i<50000) { // la grandezza determina la durata
     var t = i/wave.header.sampleRate;
     data[i++] = 128+Math.round(127*Math.sin(440*t*2*Math.PI));
   }
 
   wave.Make(data);
-  var audio = new Audio(wave.dataURI);
+  var notaLa = new Audio(wave.dataURI);
+
+  var wave2 = new RIFFWAVE();
+  wave2.header.sampleRate = 44100; // Set sample rate to 44KHz
+  wave2.header.numChannels = 1;
+
+  var notaSiHz = 440*Math.pow(Math.pow(2, 1/12), 1)
+
+    var data2 = [];
+    var i = 0;
+    while (i<50000) { // la grandezza determina la durata
+      var t = i/wave2.header.sampleRate;
+      data2[i++] = 128+Math.round(127*Math.sin(notaSiHz*t*2*Math.PI));
+    }
+
+    wave2.Make(data2);
+    var notaSi = new Audio(wave2.dataURI); //che non suona come un si.. ricontrollare formula Hz
 
 function play(audio) {
   if (!audio.paused) { // if playing stop and rewind
@@ -39,7 +54,8 @@ function play(audio) {
 
 <h2>Some tests</h2>
 
-<button onmousedown="play(audio);">La</button>
+<button onmousedown="play(notaLa);">La</button>
+<button onmousedown="play(notaSi);">Si</button>
 
 </body>
 </html>

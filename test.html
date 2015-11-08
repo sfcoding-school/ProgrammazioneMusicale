@@ -29,7 +29,7 @@ wave.header.numChannels = 1;
   wave2.header.sampleRate = 44100; // Set sample rate to 44KHz
   wave2.header.numChannels = 1;
 
-  var notaSiHz = 440*Math.pow(Math.pow(2, 1/12), 1)
+  var notaSiHz = 440*Math.pow(Math.pow(2, 1/12), 2)
 
     var data2 = [];
     var i = 0;
@@ -39,7 +39,9 @@ wave.header.numChannels = 1;
     }
 
     wave2.Make(data2);
-    var notaSi = new Audio(wave2.dataURI); //che non suona come un si.. ricontrollare formula Hz
+    var notaSi = new Audio(wave2.dataURI);
+
+    var nmusichetta;
 
 function play(audio) {
   if (!audio.paused) { // if playing stop and rewind
@@ -47,6 +49,32 @@ function play(audio) {
     audio.currentTime = 0;
   }
   audio.play();
+}
+
+function test(){
+  try {
+
+  var wave3 = new RIFFWAVE();
+  wave3.header.sampleRate = 44100; // Set sample rate to 44KHz
+  wave3.header.numChannels = 1;
+
+  var notaSiHz2 = 440*Math.pow(Math.pow(2, 1/12), 4)
+
+    var data4 = [];
+    var i = 0;
+    while (i<50000) { // la grandezza determina la durata
+      var t = i/wave3.header.sampleRate;
+      data4[i++] = 128+Math.round(127*Math.sin(notaSiHz*t*2*Math.PI));
+    }
+
+    wave3.Make(data4);
+    nmusichetta = new Audio(wave3.dataURI);
+
+    nmusichetta.play()
+  }
+  catch(err) {
+      console.log(err.message)
+  }
 }
 
 </script>
@@ -57,5 +85,6 @@ function play(audio) {
 <button onmousedown="play(notaLa);">La</button>
 <button onmousedown="play(notaSi);">Si</button>
 
+<button onmousedown="test();">Test Definitivo</button>
 </body>
 </html>

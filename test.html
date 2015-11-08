@@ -1,14 +1,19 @@
+<!DOCTYPE html>
 <html>
 <head>
 <title>Programmazione Musicale</title>
-<script src="riffwave.js"></script>
+
+
 </head>
-<body>
+<body onload="sh_highlightDocument('lang/', '.js');">
 <style>
 body { font-family: "Droid Sans"; margin: 16px 32px; }
 pre { font-family: "Droid Sans Mono"; }
 button { font-family: "Droid Sans"; font-size: 150%; }
 </style>
+<script src="sh_main.min.js"></script>
+<script src="sh_javascript.min.js"></script>
+<script src="riffwave.js"></script>
 <script>
 
 var wave = new RIFFWAVE();
@@ -33,7 +38,7 @@ wave.header.numChannels = 1;
 
     var data2 = [];
     var i = 0;
-    while (i<50000) { // la grandezza determina la durata
+    while (i<25000) { // la grandezza determina la durata
       var t = i/wave2.header.sampleRate;
       data2[i++] = 128+Math.round(127*Math.sin(notaSiHz*t*2*Math.PI));
     }
@@ -51,40 +56,28 @@ function play(audio) {
   audio.play();
 }
 
-function test(){
-  try {
-
-  var wave3 = new RIFFWAVE();
-  wave3.header.sampleRate = 44100; // Set sample rate to 44KHz
-  wave3.header.numChannels = 1;
-
-  var notaSiHz2 = 440*Math.pow(Math.pow(2, 1/12), 4)
-
-    var data4 = [];
-    var i = 0;
-    while (i<50000) { // la grandezza determina la durata
-      var t = i/wave3.header.sampleRate;
-      data4[i++] = 128+Math.round(127*Math.sin(notaSiHz*t*2*Math.PI));
-    }
-
-    wave3.Make(data4);
-    nmusichetta = new Audio(wave3.dataURI);
-
-    nmusichetta.play()
-  }
-  catch(err) {
-      console.log(err.message)
-  }
+function test2(audio){
+  audio.play();
 }
 
+function test(data){
+  data.last().play();
+  data.last().onended = function() {
+    data.pop();
+    test(data);
+  };
+}
+
+Array.prototype.last = function () {
+  return this[this.length - 1];
+};
+
 </script>
-
-
 <h2>Some tests</h2>
 
 <button onmousedown="play(notaLa);">La</button>
 <button onmousedown="play(notaSi);">Si</button>
 
-<button onmousedown="test();">Test Definitivo</button>
+<button onmousedown="test([notaSi, notaLa, notaSi, notaLa, notaSi, notaLa, notaSi, notaLa]);">Test Definitivo</button>
 </body>
 </html>

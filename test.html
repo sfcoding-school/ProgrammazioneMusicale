@@ -7,48 +7,8 @@
 <script src="sh_main.min.js"></script>
 <script src="sh_javascript.min.js"></script>
 <script src="riffwave.js"></script>
+<script src="noteMusicali.js"></script>
 <script>
-
-var wave = new RIFFWAVE();
-wave.header.sampleRate = 44100; // Set sample rate to 44KHz
-wave.header.numChannels = 1;
-
-  wave.Make(makeListWave(440.0*Math.pow(Math.pow(2, 1.0/12), -2)));
-  var notaSol = new Audio(wave.dataURI); //G_4
-  
-  wave.Make(makeListWave(440.0*Math.pow(Math.pow(2, 1.0/12), 0)));
-  var notaLa = new Audio(wave.dataURI); //A_4
-
-  wave.Make(makeListWave(440.0*Math.pow(Math.pow(2, 1.0/12), 2)));
-  var notaSi = new Audio(wave.dataURI); //B_4
-
-
-
-  // var wave2 = new RIFFWAVE();
-  // wave2.header.sampleRate = 44100; // Set sample rate to 44KHz
-  // wave2.header.numChannels = 1;
-
-  // var notaSiHz = 440*Math.pow(Math.pow(2, 1/12), 2)
-
-  //   var data2 = [];
-  //   var i = 0;
-  //   while (i<25000) { // la grandezza determina la durata
-  //     var t = i/wave2.header.sampleRate;
-  //     data2[i++] = 128+Math.round(127*Math.sin(notaSiHz*t*2*Math.PI));
-  //   }
-
-  //   wave2.Make(data2);
-  //   var notaSi = new Audio(wave2.dataURI);
-
-  function makeListWave(hertz){
-    var data = [];
-    var i = 0;
-    while (i<50000) { // la grandezza determina la durata
-      var t = i/wave.header.sampleRate;
-      data[i++] = 128+Math.round(127*Math.sin(hertz*t*2*Math.PI));
-    }
-    return data;
-  }
 
 function play(audio) {
   if (!audio.paused) { // if playing stop and rewind
@@ -77,9 +37,18 @@ Array.prototype.last = function () {
 </script>
 <h2>Some tests</h2>
 
-<button onmousedown="play(notaLa);">La</button>
-<button onmousedown="play(notaSi);">Si</button>
+<input type="image" src="mario.gif"  width="48" height="48" onmousedown="test([  E_5, E_5, E_5, C_5, E_5, G_5, pausa, G_4, pausa, C_5, pausa, G_4, pausa,  E_4, pausa, A_4, B_4, A_s_4, A_4, pausa, G_4, E_5, G_5, A_5, F_5, G_5, E_5, C_5, D_5, B_4, C_5, pausa, G_4, pausa, E_4, A_4, B_4, A_s_4, A_4, pausa, G_4, E_5, G_5, A_5, F_5, G_5, E_5, C_5, D_5, B_4, pausa, G_5, Fa_s_5, Fa_5, D_5, E_5, A_s_4, A_4, C_5, pausa, A_4, C_5, D_5,
+G_5, Fa_s_5, Fa_5, D_5, E_5, C_6, C_6, C_6, pausa, G_5, Fa_s_5, 
+Fa_5, D_5, E_5, A_s_4, A_4, C_5, pausa, A_4, C_5, D_5, pausa, 
+D_b_5, D_5, pausa, C_5, pausa, C_5, C_5, C_5, C_5, D_5, E_5, C_5,
+A_4, G_4, pausa, C_5, C_5, C_5, C_5, D_5, E_5, pausa, C_5, C_5, C_5,
+C_5, D_5, E_5, C_5, A_4, G_4, E_5, E_5, E_5, C_5, G_5, pausa,
+G_4, E_5, C_5].reverse());">
 
-<button onmousedown="test([notaSol, notaLa, notaSi]);">Test Definitivo</button>
 </body>
 </html>
+
+<!-- 
+do · re · mi · fa · sol · la · si
+C     D    E    F     G    A     B 
+-->

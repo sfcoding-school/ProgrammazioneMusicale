@@ -2,15 +2,8 @@
 <html>
 <head>
 <title>Programmazione Musicale</title>
-
-
 </head>
 <body onload="sh_highlightDocument('lang/', '.js');">
-<style>
-body { font-family: "Droid Sans"; margin: 16px 32px; }
-pre { font-family: "Droid Sans Mono"; }
-button { font-family: "Droid Sans"; font-size: 150%; }
-</style>
 <script src="sh_main.min.js"></script>
 <script src="sh_javascript.min.js"></script>
 <script src="riffwave.js"></script>
@@ -20,33 +13,42 @@ var wave = new RIFFWAVE();
 wave.header.sampleRate = 44100; // Set sample rate to 44KHz
 wave.header.numChannels = 1;
 
-  var data = [];
-  var i = 0;
-  while (i<50000) { // la grandezza determina la durata
-    var t = i/wave.header.sampleRate;
-    data[i++] = 128+Math.round(127*Math.sin(440*t*2*Math.PI));
-  }
+  wave.Make(makeListWave(440.0*Math.pow(Math.pow(2, 1.0/12), -2)));
+  var notaSol = new Audio(wave.dataURI); //G_4
+  
+  wave.Make(makeListWave(440.0*Math.pow(Math.pow(2, 1.0/12), 0)));
+  var notaLa = new Audio(wave.dataURI); //A_4
 
-  wave.Make(data);
-  var notaLa = new Audio(wave.dataURI);
+  wave.Make(makeListWave(440.0*Math.pow(Math.pow(2, 1.0/12), 2)));
+  var notaSi = new Audio(wave.dataURI); //B_4
 
-  var wave2 = new RIFFWAVE();
-  wave2.header.sampleRate = 44100; // Set sample rate to 44KHz
-  wave2.header.numChannels = 1;
 
-  var notaSiHz = 440*Math.pow(Math.pow(2, 1/12), 2)
 
-    var data2 = [];
+  // var wave2 = new RIFFWAVE();
+  // wave2.header.sampleRate = 44100; // Set sample rate to 44KHz
+  // wave2.header.numChannels = 1;
+
+  // var notaSiHz = 440*Math.pow(Math.pow(2, 1/12), 2)
+
+  //   var data2 = [];
+  //   var i = 0;
+  //   while (i<25000) { // la grandezza determina la durata
+  //     var t = i/wave2.header.sampleRate;
+  //     data2[i++] = 128+Math.round(127*Math.sin(notaSiHz*t*2*Math.PI));
+  //   }
+
+  //   wave2.Make(data2);
+  //   var notaSi = new Audio(wave2.dataURI);
+
+  function makeListWave(hertz){
+    var data = [];
     var i = 0;
-    while (i<25000) { // la grandezza determina la durata
-      var t = i/wave2.header.sampleRate;
-      data2[i++] = 128+Math.round(127*Math.sin(notaSiHz*t*2*Math.PI));
+    while (i<50000) { // la grandezza determina la durata
+      var t = i/wave.header.sampleRate;
+      data[i++] = 128+Math.round(127*Math.sin(hertz*t*2*Math.PI));
     }
-
-    wave2.Make(data2);
-    var notaSi = new Audio(wave2.dataURI);
-
-    var nmusichetta;
+    return data;
+  }
 
 function play(audio) {
   if (!audio.paused) { // if playing stop and rewind
@@ -78,6 +80,6 @@ Array.prototype.last = function () {
 <button onmousedown="play(notaLa);">La</button>
 <button onmousedown="play(notaSi);">Si</button>
 
-<button onmousedown="test([notaSi, notaLa, notaSi, notaLa, notaSi, notaLa, notaSi, notaLa]);">Test Definitivo</button>
+<button onmousedown="test([notaSol, notaLa, notaSi]);">Test Definitivo</button>
 </body>
 </html>

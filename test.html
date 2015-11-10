@@ -2,12 +2,33 @@
 <html>
 <head>
 <title>Programmazione Musicale</title>
+<script src="librerie/jquery-1.11.3.min.js"></script>
+<script src="librerie/sh_main.min.js"></script> <!-- bisogna capire a cosa servano -->
+<script src="librerie/sh_javascript.min.js"></script> <!-- bisogna capire a cosa servano -->
+<script src="librerie/riffwave.js"></script>
 </head>
 <body onload="sh_highlightDocument('lang/', '.js');">
-<script src="sh_main.min.js"></script>
-<script src="sh_javascript.min.js"></script>
-<script src="riffwave.js"></script>
-<script src="noteMusicali.js"></script>
+<script src="utility/noteMusicali.js"></script>
+<script type='text/javascript'>//<![CDATA[
+$(window).load(function(){
+  $("textarea").data("oldValue", function() {
+      return this.value;
+  }).keyup(function() {
+      var $this = $(this);
+      if (this.value !== $this.data("oldValue")) {
+          console.log("Changed! New value: " + this.value);
+          console.log((this.value).indexOf("ciao") > -1);
+          if((this.value).indexOf("ciao") > -1){
+              console.log("entrato");
+              $("#theId").val(this.value + "volevosoloaggiungeretesto");
+          };
+
+          $this.data("oldValue", this.value);
+      }
+  });
+});//]]> 
+
+</script>
 <script>
 
 function play(audio) {
@@ -36,6 +57,9 @@ Array.prototype.last = function () {
 
 </script>
 <h2>Some tests</h2>
+
+<textarea id="theId" style="resize: none; width: 600px; height: 300px;" rows="4" cols="50">
+</textarea>
 
 <input type="image" src="mario.gif"  width="48" height="48" onmousedown="test([  E_5, E_5, E_5, C_5, E_5, G_5, pausa, G_4, pausa, C_5, pausa, G_4, pausa,  E_4, pausa, A_4, B_4, A_s_4, A_4, pausa, G_4, E_5, G_5, A_5, F_5, G_5, E_5, C_5, D_5, B_4, C_5, pausa, G_4, pausa, E_4, A_4, B_4, A_s_4, A_4, pausa, G_4, E_5, G_5, A_5, F_5, G_5, E_5, C_5, D_5, B_4, pausa, G_5, Fa_s_5, Fa_5, D_5, E_5, A_s_4, A_4, C_5, pausa, A_4, C_5, D_5,
 G_5, Fa_s_5, Fa_5, D_5, E_5, C_6, C_6, C_6, pausa, G_5, Fa_s_5, 

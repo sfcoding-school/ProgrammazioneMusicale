@@ -96,5 +96,3 @@ wave.header.numChannels = 1;
     }
     return data;
   }
-
-// sono arrivato alla 5 riga dello sparito dopo le prime due lettere

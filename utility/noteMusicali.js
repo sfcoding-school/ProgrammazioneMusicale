@@ -96,3 +96,8 @@ wave.header.numChannels = 1;
     }
     return data;
   }
+
+  var dictionaryParser = {
+    "la_4": La_4,
+    "si_4": Si_4
+  }

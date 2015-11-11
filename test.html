@@ -16,14 +16,64 @@ $(window).load(function(){
   }).keyup(function() {
       var $this = $(this);
       if (this.value !== $this.data("oldValue")) {
-          // console.log("Changed! New value: " + this.value);
-          // console.log((this.value).indexOf("ciao") > -1);
-          if((this.value).indexOf("ciao") > -1){
-              // console.log("entrato");
-              $("#theId").val(this.value + "volevosoloaggiungeretesto");
+          var temp = (this.value).split(" ")
+          var testCasuale = ["do", "re", "mi", "fa", "la", "si"]
+          var booleano = true;
+          for (var i = 0; i < temp.length; i++) {
+            if (temp[i] != "") {
+              lunghezzaAttuale = temp[i].length;
+              if (lunghezzaAttuale > 4 || lunghezzaAttuale ==1) {
+                booleano = false;
+                break;
+              };
+              if (lunghezzaAttuale == 4) {
+                  //devi essere sol + numero
+                  if(!isNaN(temp[i].charAt(lunghezzaAttuale-1)) && temp[i].slice(0, -1) == "sol"){
+                    //OK!
+                  } else{
+                    booleano = false;
+                    break;
+                  }
+              };
+              if (lunghezzaAttuale == 3) {
+                //o sei sol o sei uno degli altri + numero
+                if (temp[i] == "sol") {
+                  //OK
+                } else {
+                  if(!isNaN(temp[i].charAt(lunghezzaAttuale-1)) && testCasuale.indexOf(temp[i].slice(0, -1)) > -1){
+                    //OK!
+                  } else{
+                    booleano = false;
+                    break;
+                  }
+                };
+              };
+              if (lunghezzaAttuale == 2) {
+                //devi essere una delle note
+                if (testCasuale.indexOf(temp[i]) > -1) {
+                  //OK
+                }else{
+                  booleano = false;
+                  break;
+                };
+              };
+            };
           };
+          if (booleano) {
+              $("#errore").html("");
+              $("#ok").html("OK!");
+          }else{
+              $("#errore").html("Errore!");
+              $("#ok").html("");
+          };
+          // // console.log("Changed! New value: " + this.value);
+          // // console.log((this.value).indexOf("ciao") > -1);
+          // if((this.value).indexOf("ciao") > -1){
+          //     // console.log("entrato");
+          //     $("#theId").val(this.value + "volevosoloaggiungeretesto");
+          // };
 
-          $this.data("oldValue", this.value);
+          // $this.data("oldValue", this.value);
       }
   });
 });//]]> 
@@ -58,10 +108,19 @@ Array.prototype.last = function () {
 function showtext(){
  var text = document.getElementById("theId");
  console.log(text.value);
- var temp = (text.value).split(" ");
- console.log(temp);
- test(temp);
-
+ var listaDaTextArea = (text.value).split(" ");
+ console.log(listaDaTextArea);
+ 
+ var listaMusicaFinale = [];
+ for (var i = 0; i < listaDaTextArea.length; i++) {
+   if (listaDaTextArea[i] > 2) {
+    //se ho scelto anche l'ottava o è il sol
+   } else {
+    //uso "ottava base" => 4
+    listaMusicaFinale.push(dictionaryParser[temp[0].toLowerCase() + "_4"])
+   };
+ };
+ test(listaMusicaFinale.reverse())
 }
 
 </script>
@@ -79,7 +138,7 @@ $(document).ready(function() {
 </textarea>
 <input type="button" value="TestTextArea" id="add" onclick="showtext()" />
 
-<input type="image" src="mario.gif"  width="48" height="48" onmousedown="test([  E_5, E_5, E_5, C_5, E_5, G_5, pausa, G_4, pausa, C_5, pausa, G_4, pausa,  E_4, pausa, A_4, B_4, A_s_4, A_4, pausa, G_4, E_5, G_5, A_5, F_5, G_5, E_5, C_5, D_5, B_4, C_5, pausa, G_4, pausa, E_4, A_4, B_4, A_s_4, A_4, pausa, G_4, E_5, G_5, A_5, F_5, G_5, E_5, C_5, D_5, B_4, pausa, G_5, Fa_s_5, Fa_5, D_5, E_5, A_s_4, A_4, C_5, pausa, A_4, C_5, D_5,
+<input type="image" src="mario.gif"  width="48" height="48" onmousedown="test([E_5, E_5, E_5, C_5, E_5, G_5, pausa, G_4, pausa, C_5, pausa, G_4, pausa,  E_4, pausa, A_4, B_4, A_s_4, A_4, pausa, G_4, E_5, G_5, A_5, F_5, G_5, E_5, C_5, D_5, B_4, C_5, pausa, G_4, pausa, E_4, A_4, B_4, A_s_4, A_4, pausa, G_4, E_5, G_5, A_5, F_5, G_5, E_5, C_5, D_5, B_4, pausa, G_5, Fa_s_5, Fa_5, D_5, E_5, A_s_4, A_4, C_5, pausa, A_4, C_5, D_5,
 G_5, Fa_s_5, Fa_5, D_5, E_5, C_6, C_6, C_6, pausa, G_5, Fa_s_5, 
 Fa_5, D_5, E_5, A_s_4, A_4, C_5, pausa, A_4, C_5, D_5, pausa, 
 D_b_5, D_5, pausa, C_5, pausa, C_5, C_5, C_5, C_5, D_5, E_5, C_5,
@@ -87,6 +146,8 @@ A_4, G_4, pausa, C_5, C_5, C_5, C_5, D_5, E_5, pausa, C_5, C_5, C_5,
 C_5, D_5, E_5, C_5, A_4, G_4, E_5, E_5, E_5, C_5, G_5, pausa,
 G_4, E_5, C_5].reverse());">
 
+<p id="ok"></p>
+<p id="errore"></p>
 </body>
 </html>
 

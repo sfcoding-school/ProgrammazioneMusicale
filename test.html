@@ -3,8 +3,6 @@
 <head>
 <title>Programmazione Musicale</title>
 <script src="librerie/jquery-1.11.3.min.js"></script>
-<script src="librerie/sh_main.min.js"></script> <!-- bisogna capire a cosa servano -->
-<script src="librerie/sh_javascript.min.js"></script> <!-- bisogna capire a cosa servano -->
 <script src="librerie/riffwave.js"></script>
 </head>
 <body onload="sh_highlightDocument('lang/', '.js');">
@@ -92,17 +90,13 @@ $(window).load(function(){
 var stoSuonando = false;
 var thereIsABug = false;
 
-function play(audio) {
-  if (!audio.paused) { // if playing stop and rewind
-    audio.pause();
-    audio.currentTime = 0;
-  }
-  audio.play();
-}
-
-function test2(audio){
-  audio.play();
-}
+// function play(audio) {
+//   if (!audio.paused) { // if playing stop and rewind
+//     audio.pause();
+//     audio.currentTime = 0;
+//   }
+//   audio.play();
+// }
 
 function test(data){
   try{
@@ -159,7 +153,7 @@ $(document).ready(function() {
 </textarea>
 <input type="button" value="TestTextArea" id="add" onclick="showtext()" />
 
-<input type="image" src="mario.gif"  width="48" height="48" onmousedown="test([E_5, E_5, E_5, C_5, E_5, G_5, pausa, G_4, pausa, C_5, pausa, G_4, pausa,  E_4, pausa, A_4, B_4, A_s_4, A_4, pausa, G_4, E_5, G_5, A_5, F_5, G_5, E_5, C_5, D_5, B_4, C_5, pausa, G_4, pausa, E_4, A_4, B_4, A_s_4, A_4, pausa, G_4, E_5, G_5, A_5, F_5, G_5, E_5, C_5, D_5, B_4, pausa, G_5, Fa_s_5, Fa_5, D_5, E_5, A_s_4, A_4, C_5, pausa, A_4, C_5, D_5,
+<input type="image" src="img/mario.gif"  width="48" height="48" onmousedown="test([E_5, E_5, E_5, C_5, E_5, G_5, pausa, G_4, pausa, C_5, pausa, G_4, pausa,  E_4, pausa, A_4, B_4, A_s_4, A_4, pausa, G_4, E_5, G_5, A_5, F_5, G_5, E_5, C_5, D_5, B_4, C_5, pausa, G_4, pausa, E_4, A_4, B_4, A_s_4, A_4, pausa, G_4, E_5, G_5, A_5, F_5, G_5, E_5, C_5, D_5, B_4, pausa, G_5, Fa_s_5, Fa_5, D_5, E_5, A_s_4, A_4, C_5, pausa, A_4, C_5, D_5,
 G_5, Fa_s_5, Fa_5, D_5, E_5, C_6, C_6, C_6, pausa, G_5, Fa_s_5, 
 Fa_5, D_5, E_5, A_s_4, A_4, C_5, pausa, A_4, C_5, D_5, pausa, 
 D_b_5, D_5, pausa, C_5, pausa, C_5, C_5, C_5, C_5, D_5, E_5, C_5,

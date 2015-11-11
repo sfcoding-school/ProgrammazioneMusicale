@@ -24,14 +24,16 @@ $(window).load(function(){
               lunghezzaAttuale = temp[i].length;
               if (lunghezzaAttuale > 4 || lunghezzaAttuale ==1) {
                 booleano = false;
+                
                 break;
               };
               if (lunghezzaAttuale == 4) {
                   //devi essere sol + numero
                   if(!isNaN(temp[i].charAt(lunghezzaAttuale-1)) && temp[i].slice(0, -1) == "sol"){
                     //OK!
-                  } else{
+                                      } else{
                     booleano = false;
+                    
                     break;
                   }
               };
@@ -39,11 +41,13 @@ $(window).load(function(){
                 //o sei sol o sei uno degli altri + numero
                 if (temp[i] == "sol") {
                   //OK
-                } else {
+
+               } else {
                   if(!isNaN(temp[i].charAt(lunghezzaAttuale-1)) && testCasuale.indexOf(temp[i].slice(0, -1)) > -1){
                     //OK!
-                  } else{
+                                      } else{
                     booleano = false;
+                    
                     break;
                   }
                 };
@@ -52,8 +56,10 @@ $(window).load(function(){
                 //devi essere una delle note
                 if (testCasuale.indexOf(temp[i]) > -1) {
                   //OK
-                }else{
+
+               }else{
                   booleano = false;
+                  
                   break;
                 };
               };
@@ -62,9 +68,11 @@ $(window).load(function(){
           if (booleano) {
               $("#errore").html("");
               $("#ok").html("OK!");
+              thereIsABug = false;
           }else{
               $("#errore").html("Errore!");
               $("#ok").html("");
+              thereIsABug = true;
           };
           // // console.log("Changed! New value: " + this.value);
           // // console.log((this.value).indexOf("ciao") > -1);
@@ -81,6 +89,9 @@ $(window).load(function(){
 </script>
 <script>
 
+var stoSuonando = false;
+var thereIsABug = false;
+
 function play(audio) {
   if (!audio.paused) { // if playing stop and rewind
     audio.pause();
@@ -94,11 +105,15 @@ function test2(audio){
 }
 
 function test(data){
-  data.last().play();
-  data.last().onended = function() {
-    data.pop();
-    test(data);
-  };
+  try{
+    data.last().play();
+    data.last().onended = function() {
+      data.pop();
+      test(data);
+    };
+  }catch(err){
+    stoSuonando = false;
+  }
 }
 
 Array.prototype.last = function () {
@@ -106,6 +121,9 @@ Array.prototype.last = function () {
 };
 
 function showtext(){
+  if (thereIsABug || stoSuonando) {
+    console.log("if in showtext" + thereIsABug + stoSuonando);
+    return;};
  var text = document.getElementById("theId");
  console.log(text.value);
  var listaDaTextArea = (text.value).split(" ");
@@ -113,13 +131,16 @@ function showtext(){
  
  var listaMusicaFinale = [];
  for (var i = 0; i < listaDaTextArea.length; i++) {
-   if (listaDaTextArea[i] > 2) {
+   if (listaDaTextArea[i].length > 2 && listaDaTextArea[i].toLowerCase() != "sol") {
     //se ho scelto anche l'ottava o è il sol
-   } else {
+    listaMusicaFinale.push(dictionaryParser[(listaDaTextArea[i].slice(0, -1)).toLowerCase() + "_" + listaDaTextArea[i].charAt(listaDaTextArea[i].length-1)])
+  } else {
     //uso "ottava base" => 4
-    listaMusicaFinale.push(dictionaryParser[temp[0].toLowerCase() + "_4"])
+    listaMusicaFinale.push(dictionaryParser[listaDaTextArea[i].toLowerCase() + "_4"])
    };
  };
+ // console.log(listaMusicaFinale)
+ stoSuonando = true;
  test(listaMusicaFinale.reverse())
 }
 

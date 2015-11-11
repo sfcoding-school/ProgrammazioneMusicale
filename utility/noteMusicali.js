@@ -98,6 +98,34 @@ wave.header.numChannels = 1;
   }
 
   var dictionaryParser = {
+    "do_4": Do_4,
     "la_4": La_4,
-    "si_4": Si_4
+    "si_4": Si_4,
+    "re_4": Re_4,
+    "mi_4": Mi_4,
+    "fa_4": Fa_4,
+    "la_4": La_4,
+    "si_4": Si_4,
+    "do_5": Do_5,
+    "re_5": Re_5,
+    "mi_5": Mi_5,
+    "fa_5": Fa_5,
+    "la_5": La_5,
+    "do_6": Do_6,
+    "re_6": Re_6,
+    "mi_6": Mi_6,
+    "fa_6": Fa_6,
+    "la_6": La_6,
+    "si_6": Si_6,
+    "sol_6": Sol_6, 
+    "sol_4": Sol_4, 
+    "sol_5": Sol_5, 
+    "sol_b_6": Sol_b_6, 
+    "do_s_5": Do_s_5,
+    "re_s_6": Re_s_6,
+    "mi_b_6": Mi_b_6,
+    "fa_s_5": Fa_s_5,
+    "la_b_4": La_b_4,
+    "si_b_4": Si_b_4,
+    "pausa": pausa
   }

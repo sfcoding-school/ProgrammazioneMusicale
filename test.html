@@ -5,9 +5,9 @@
 <script src="librerie/jquery-1.11.3.min.js"></script>
 <script src="librerie/riffwave.js"></script>
 </head>
-<body onload="sh_highlightDocument('lang/', '.js');">
+<body><!-- <body onload="sh_highlightDocument('lang/', '.js');"> -->
 <script src="utility/noteMusicali.js"></script>
-<script type='text/javascript'>//<![CDATA[
+<script type="text/javascript">//<![CDATA[
 $(window).load(function(){
   $("textarea").data("oldValue", function() {
       return this.value;
@@ -22,16 +22,15 @@ $(window).load(function(){
               lunghezzaAttuale = temp[i].length;
               if (lunghezzaAttuale > 4 || lunghezzaAttuale ==1) {
                 booleano = false;
-                
+
                 break;
               };
               if (lunghezzaAttuale == 4) {
                   //devi essere sol + numero
                   if(!isNaN(temp[i].charAt(lunghezzaAttuale-1)) && temp[i].slice(0, -1) == "sol"){
                     //OK!
-                                      } else{
+                    } else{
                     booleano = false;
-                    
                     break;
                   }
               };
@@ -39,13 +38,11 @@ $(window).load(function(){
                 //o sei sol o sei uno degli altri + numero
                 if (temp[i] == "sol") {
                   //OK
-
                } else {
                   if(!isNaN(temp[i].charAt(lunghezzaAttuale-1)) && testCasuale.indexOf(temp[i].slice(0, -1)) > -1){
                     //OK!
-                                      } else{
+                  } else{
                     booleano = false;
-                    
                     break;
                   }
                 };
@@ -57,7 +54,7 @@ $(window).load(function(){
 
                }else{
                   booleano = false;
-                  
+
                   break;
                 };
               };
@@ -82,7 +79,7 @@ $(window).load(function(){
           // $this.data("oldValue", this.value);
       }
   });
-});//]]> 
+});//]]>
 
 </script>
 <script>
@@ -98,15 +95,16 @@ var thereIsABug = false;
 //   audio.play();
 // }
 
-function test(data){
+function riproduci(data, n, m){
   try{
-    data.last().play();
-    data.last().onended = function() {
-      data.pop();
-      test(data);
+    //variable.constructor === Array
+    data[n].play();
+    data[n].onended = function() {
+      riproduci(data, n-1, m);
     };
   }catch(err){
     stoSuonando = false;
+    if (typeof m !== undefined && m > 0) riproduci(data, data.length-1, m-1);
   }
 }
 
@@ -114,15 +112,20 @@ Array.prototype.last = function () {
   return this[this.length - 1];
 };
 
-function showtext(){
+function suona(canzoneEsistente){
+  console.log(canzoneEsistente);
   if (thereIsABug || stoSuonando) {
-    console.log("if in showtext" + thereIsABug + stoSuonando);
-    return;};
- var text = document.getElementById("theId");
- console.log(text.value);
- var listaDaTextArea = (text.value).split(" ");
- console.log(listaDaTextArea);
- 
+    console.log("if in suona" + thereIsABug + stoSuonando);
+    return;
+  };
+
+  var text = document.getElementById("theId");
+  //console.log(text.value);
+  var listaDaTextArea = (text.value).split(" ");
+  //console.log(listaDaTextArea);
+  if (typeof canzoneEsistente !== 'undefined') {
+    listaDaTextArea = (canzoneEsistente).split(" ");
+  }
  var listaMusicaFinale = [];
  for (var i = 0; i < listaDaTextArea.length; i++) {
    if (listaDaTextArea[i].length > 2 && listaDaTextArea[i].toLowerCase() != "sol") {
@@ -135,38 +138,28 @@ function showtext(){
  };
  // console.log(listaMusicaFinale)
  stoSuonando = true;
- test(listaMusicaFinale.reverse())
+ riproduci(listaMusicaFinale.reverse(), listaMusicaFinale.length-1, 0);
+ console.log(listaMusicaFinale.reverse());
 }
 
 </script>
-<!-- <script type="text/javascript">
-$(document).ready(function() {
-    $("#btnSubmit").click(function(){
-
-        alert("ciao");
-    }); 
-});
-</script> -->
 <h2>Some tests</h2>
 
 <textarea id="theId" style="resize: none; width: 600px; height: 300px;" rows="4" cols="50">
 </textarea>
-<input type="button" value="TestTextArea" id="add" onclick="showtext()" />
+<input type="button" value="asddas" id="add" onclick="riproduci(['do_5', 're_5', 'mi_5', 'fa_5', 'sol_5']);" />
+<input type="button" value="suona" id="add" onclick="suona()" />
 
-<input type="image" src="img/mario.gif"  width="48" height="48" onmousedown="test([E_5, E_5, E_5, C_5, E_5, G_5, pausa, G_4, pausa, C_5, pausa, G_4, pausa,  E_4, pausa, A_4, B_4, A_s_4, A_4, pausa, G_4, E_5, G_5, A_5, F_5, G_5, E_5, C_5, D_5, B_4, C_5, pausa, G_4, pausa, E_4, A_4, B_4, A_s_4, A_4, pausa, G_4, E_5, G_5, A_5, F_5, G_5, E_5, C_5, D_5, B_4, pausa, G_5, Fa_s_5, Fa_5, D_5, E_5, A_s_4, A_4, C_5, pausa, A_4, C_5, D_5,
-G_5, Fa_s_5, Fa_5, D_5, E_5, C_6, C_6, C_6, pausa, G_5, Fa_s_5, 
-Fa_5, D_5, E_5, A_s_4, A_4, C_5, pausa, A_4, C_5, D_5, pausa, 
-D_b_5, D_5, pausa, C_5, pausa, C_5, C_5, C_5, C_5, D_5, E_5, C_5,
-A_4, G_4, pausa, C_5, C_5, C_5, C_5, D_5, E_5, pausa, C_5, C_5, C_5,
-C_5, D_5, E_5, C_5, A_4, G_4, E_5, E_5, E_5, C_5, G_5, pausa,
-G_4, E_5, C_5].reverse());">
+<input type="image" src="img/mario.gif"  width="48" height="48"
+onmousedown="suona('mi5 mi5 mi5 do5 mi5 sol5 sol4 do5 sol4 mi4 la4 si4 las4 la4 sol4 mi5 sol5 la5 fa5 sol5 mi5 do5 re5 si4 do5 sol4 mi4 la4 si4 las4 la4 sol4 mi5 sol5 la5 fa5 sol5 mi5 do5 re5 si4 sol5 las5 la5 re5 mi5 las4 la4 do5 la4 do5 re5 sol5 las5 la5 re5 mi5 do6 do6 do6 sol5 las5 la5 re5 mi5 las4 la4 do5 la4 do5 re5 si5 re5 do5 do5 do5 do5 do5 re5 mi5 do5 la4 sol4 do5 do5 do5 do5 re5 mi5 do5 do5 do5 do5 re5 mi5 do5 la4 sol4 mi5 mi5 mi5 do5 sol5 sol4 mi5 do5');">
+
 
 <p id="ok"></p>
 <p id="errore"></p>
 </body>
 </html>
 
-<!-- 
+<!--
 do · re · mi · fa · sol · la · si
-C     D    E    F     G    A     B 
+C     D    E    F     G    A     B
 -->

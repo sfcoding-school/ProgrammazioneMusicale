@@ -23,14 +23,17 @@ $(window).load(function(){
               //dovrei prima assicurarmi che non sei un ciclo
               //ovvero controllare "ripeti" + "(" + serie di note + "," + numero + ")"
 
-              //se non è nel dizionario può essere:
+              //se non è nel dizionario può essere solo una di queste cose:
               // - ripeti(
               // - ripeti
               // - ripeti(* //con * che deve essere cosa buona
               // - ,
               // - numero
+              // - *, //con * nota
+              // - ,* //con * numero
+              // - *) //con * numero
               // - )
-              
+
             }
           }
           if (booleano) {

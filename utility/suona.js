@@ -25,10 +25,16 @@ function suona(canzoneEsistente){
 
   var text = document.getElementById("theId");
   var listaDaTextArea = (text.value).split(" ");
+  if (typeof canzoneEsistente !== 'undefined') {
+    listaDaTextArea = (canzoneEsistente).split(" ");
+    console.log("ce " + listaDaTextArea)
+  }
   var listaMusicaFinale = [];
   var i=0;
   while(i<listaDaTextArea.length){
-    if (
+    if (listaDaTextArea[i].toLowerCase() in dictionaryParser /*caso pausa*/) {
+      listaMusicaFinale.push(dictionaryParser[listaDaTextArea[i]]);
+    } else if (
           (listaDaTextArea[i].slice(0, -1)).toLowerCase() + "_"
           + listaDaTextArea[i].charAt(listaDaTextArea[i].length-1) in dictionaryParser
           ||
@@ -52,7 +58,9 @@ function suona(canzoneEsistente){
           var listaMusicaCiclo = [];
           var temp = listaDaTextArea[i].split("(");
           if (temp.length > 1) {
-            if (
+            if (temp[1].toLowerCase() in dictionaryParser /*caso pausa*/) {
+              listaMusicaCiclo.push(dictionaryParser[temp[1]]);
+            } else if (
                   (temp[1].slice(0, -1)).toLowerCase() + "_"
                   + temp[1].charAt(temp[1].length-1) in dictionaryParser
                   ||
@@ -68,12 +76,14 @@ function suona(canzoneEsistente){
               } else {
                 listaMusicaCiclo.push(dictionaryParser[temp[1].toLowerCase() + "_4"]);
               }
-              console.log("trovato2 " + temp[1])
+              // console.log("trovato2 " + temp[1])
             }
           }
           i++;
           while (listaDaTextArea[i].indexOf(",") <= -1) {
-            if (
+            if (listaDaTextArea[i].toLowerCase() in dictionaryParser /*caso pausa*/) {
+              listaMusicaCiclo.push(dictionaryParser[listaDaTextArea[i]]);
+            } else if (
                   (listaDaTextArea[i].slice(0, -1)).toLowerCase() + "_"
                   + listaDaTextArea[i].charAt(listaDaTextArea[i].length-1) in dictionaryParser
                   ||
@@ -89,15 +99,17 @@ function suona(canzoneEsistente){
               } else {
                 listaMusicaCiclo.push(dictionaryParser[listaDaTextArea[i].toLowerCase() + "_4"]);
               }
-              console.log("trovato2 " + (listaDaTextArea[i].slice(0, -1)).toLowerCase() + "_"
-                    + listaDaTextArea[i].charAt(listaDaTextArea[i].length-1))
+              // console.log("trovato2 " + (listaDaTextArea[i].slice(0, -1)).toLowerCase() + "_"
+              //       + listaDaTextArea[i].charAt(listaDaTextArea[i].length-1))
             }
             i++;
           }
           //devo poi beccare se c'è una nota attaccata alla virgola
           temp = listaDaTextArea[i].split(",");
           if (temp.length > 1) {
-            if (
+            if (temp[0].toLowerCase() in dictionaryParser /*caso pausa*/) {
+              listaMusicaFinale.push(dictionaryParser[temp[0]]);
+            } else if (
                   (temp[0].slice(0, -1)).toLowerCase() + "_"
                   + temp[0].charAt(temp[0].length-1) in dictionaryParser
                   ||
@@ -113,7 +125,7 @@ function suona(canzoneEsistente){
               } else {
                 listaMusicaCiclo.push(dictionaryParser[temp[0].toLowerCase() + "_4"]);
               }
-              console.log("trovato2 " + temp[0])
+              // console.log("trovato2 " + temp[0])
             }
           }
           i++;
@@ -122,13 +134,13 @@ function suona(canzoneEsistente){
             if (!isNaN(listaDaTextArea[i]) || listaDaTextArea[i].indexOf(")") > -1) {
               temp = listaDaTextArea[i].split(")");
               quantiGiri = temp[0];
-              console.log("#cicli: " + temp[0]);
+              // console.log("#cicli: " + temp[0]);
               break;
             }
           }
 
           for (var j = 0; j < parseInt(quantiGiri); j++) {
-            console.log("sas " + listaMusicaCiclo.length + listaMusicaCiclo);
+            // console.log("sas " + listaMusicaCiclo.length + listaMusicaCiclo);
             listaMusicaFinale = listaMusicaFinale.concat(listaMusicaCiclo);
           }
 

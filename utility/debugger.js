@@ -7,6 +7,7 @@ $(window).load(function(){
           var temp = (this.value).split(" ");
           var testCasuale = ["do", "re", "mi", "fa", "la", "si"];
           var booleano = true;
+          var pLeft = 0, comma = 0, pRight = 0;
           for (var i = 0; i < temp.length; i++) {
             if (i == temp.length-1 && temp[i] === "") {
               break;
@@ -20,7 +21,16 @@ $(window).load(function(){
                 )
             {
               //dovrei prima assicurarmi che non sei un ciclo
-              booleano = false;
+              //ovvero controllare "ripeti" + "(" + serie di note + "," + numero + ")"
+
+              //se non è nel dizionario può essere:
+              // - ripeti(
+              // - ripeti
+              // - ripeti(* //con * che deve essere cosa buona
+              // - ,
+              // - numero
+              // - )
+              
             }
           }
           if (booleano) {

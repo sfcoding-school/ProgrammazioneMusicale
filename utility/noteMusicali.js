@@ -10,7 +10,8 @@
   //   return data;
   // }
 
-  function simHertz(hz) {
+  function simHertz(hz, s) {
+      s = typeof s !== 'undefined' ? s : 0.2;
       var audio = new Audio();
       var wave = new RIFFWAVE();
       wave.header.sampleRate = 44100; // Set sample rate to 44KHz
@@ -18,7 +19,7 @@
       var data = [];
 
       var i = 0;
-      while (i<8000) { // la grandezza determina la durata .. la formula giusta dovrebbe essere wave.header.sampleRate * s
+      while (i< wave.header.sampleRate * s) { // la grandezza determina la durata .. la formula giusta dovrebbe essere wave.header.sampleRate * s
         var t = i/wave.header.sampleRate;
         data[i++] = 128+Math.round(127*Math.sin(hz*t*2*Math.PI));
       }
@@ -59,7 +60,7 @@
     "sol_6": simHertz(440.0*Math.pow(Math.pow(2, 1.0/12), 22)),
     "la_6": simHertz(440.0*Math.pow(Math.pow(2, 1.0/12), 24)),
     "si_6": simHertz(440.0*Math.pow(Math.pow(2, 1.0/12), 26)),
-    "pausa": simHertz(1)
+    "pausa": simHertz(0, 0.0001)
   };
 
 // var mario = "mi5 mi5 mi5 do5 mi5 sol5 pausa sol pausa do5 pausa sol pausa mi pausa la si #sol la pausa sol mi5 sol5 la5 fa5 sol5 mi5 do5 re5 si do5 pausa sol pausa mi la si #sol la pausa sol mi5 sol5 la5 fa5 sol5 mi5 do5 re5 si pausa sol5 \#fa5 fa5 re5 mi5 #sol la do5 pausa la do5 re5 sol5 \#fa5 fa5 re5 mi5 do6 do6 do6 pausa sol5 \#fa5  fa5 re5 mi5 #sol la do5 pausa la do5 re5 pausa  #do5 re5 pausa do5 pausa do5 do5 do5 do5 re5 mi5 do5 la sol pausa do5 do5 do5 do5 re5 mi5 pausa do5 do5 do5 do5 re5 mi5 do5 la sol mi5 mi5 mi5 do5 sol5 pausa sol mi5 do5";

@@ -1,6 +1,4 @@
-
 var stoSuonando = false;
-var thereIsABug = false;
 
 function riproduci(data, n){
   try{
@@ -18,17 +16,17 @@ Array.prototype.last = function () {
 };
 
 function suona(canzoneEsistente){
-  if (thereIsABug || stoSuonando) {
-    console.log("if in suona " + thereIsABug + " " + stoSuonando);
-    //return; //da togliere commento una volta sistemato debugger !!!!
+  if (window.glob || stoSuonando) {
+    console.log("if in suona " + window.glob + " " + stoSuonando);
+    return;
   }
 
   var text = document.getElementById("theId");
   var listaDaTextArea = (text.value).split(" ");
   if (typeof canzoneEsistente !== 'undefined') {
     listaDaTextArea = (canzoneEsistente).split(" ");
-    console.log("ce " + listaDaTextArea)
   }
+  console.log("ce " + listaDaTextArea);
   var listaMusicaFinale = [];
   var i=0;
   while(i<listaDaTextArea.length){
@@ -82,7 +80,7 @@ function suona(canzoneEsistente){
           i++;
           while (listaDaTextArea[i].indexOf(",") <= -1) {
             if (listaDaTextArea[i].toLowerCase() in dictionaryParser /*caso pausa*/) {
-              listaMusicaCiclo.push(dictionaryParser[listaDaTextArea[i]]);
+              listaMusicaFinale.push(dictionaryParser[listaDaTextArea[i]]);
             } else if (
                   (listaDaTextArea[i].slice(0, -1)).toLowerCase() + "_"
                   + listaDaTextArea[i].charAt(listaDaTextArea[i].length-1) in dictionaryParser

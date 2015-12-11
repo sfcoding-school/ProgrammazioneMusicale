@@ -1,3 +1,6 @@
+// !!! al momento mancano alcuni casi da gestire e si riesce a mettere un ciclo dopo la virgola di un ciclo
+//  ciò è ovviamente sbagliato e va gestito sennò la funziona suona si incazza
+
 $(window).load(function(){
   $("textarea").data("oldValue", function() {
       return this.value;
@@ -55,7 +58,7 @@ $(window).load(function(){
                     )
                   {
                     //tutto ok
-                  } else { //manca il caso in cui "ripeti(*,*)*"
+                  } else { //manca il caso in cui "ripeti(*,*)*" e "ripeti(*," //unica nota
                     booleano = false;
                     break;
                   }
@@ -63,7 +66,7 @@ $(window).load(function(){
               } else if(comma === 0 && !isNaN(temp[i])){ //solo se il numero è da solo
                 num--; console.log("asd1 " +  temp[i] + " " + !isNaN(temp[i]) + " " + !isNaN("") );
               } else if(temp[i].indexOf(",") > -1){
-                //manca il caso in cui "*,*)*"
+                //manca il caso in cui "*,*)" && "*,*)*"
                 comma--;
                 if (!temp[i].localeCompare(",")) {
                 }  else {
@@ -102,6 +105,7 @@ $(window).load(function(){
                   var appoggio3 = temp[i].split(")");
                   if (!isNaN(appoggio3[0]) && appoggio3[1]==="") {
                     //tutto ok
+                    num--;
                   } else if(
                       appoggio3[0]==="" &&
                       (
@@ -127,8 +131,6 @@ $(window).load(function(){
                     booleano = false;
                   }
                 }
-                // - *) //con * numero
-                //- )*nota
               } else {
                 booleano = false;
               }
@@ -147,14 +149,6 @@ $(window).load(function(){
               $("#ok").html("");
               window.glob = true;
           }
-          // // console.log("Changed! New value: " + this.value);
-          // // console.log((this.value).indexOf("ciao") > -1);
-          // if((this.value).indexOf("ciao") > -1){
-          //     // console.log("entrato");
-          //     $("#theId").val(this.value + "volevosoloaggiungeretesto");
-          // };
-
-          // $this.data("oldValue", this.value);
       }
   });
 });

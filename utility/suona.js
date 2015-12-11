@@ -26,10 +26,11 @@ function suona(canzoneEsistente){
   if (typeof canzoneEsistente !== 'undefined') {
     listaDaTextArea = (canzoneEsistente).split(" ");
   }
-  console.log("ce " + listaDaTextArea);
+  console.log("suona-> " + listaDaTextArea);
   var listaMusicaFinale = [];
   var i=0;
   while(i<listaDaTextArea.length){
+
     if (listaDaTextArea[i].toLowerCase() in dictionaryParser /*caso pausa*/) {
       listaMusicaFinale.push(dictionaryParser[listaDaTextArea[i]]);
     } else if (
@@ -128,11 +129,29 @@ function suona(canzoneEsistente){
           }
           i++;
           var quantiGiri;
+          var notaDopo = "";
           while (true) {
             if (!isNaN(listaDaTextArea[i]) || listaDaTextArea[i].indexOf(")") > -1) {
               temp = listaDaTextArea[i].split(")");
               quantiGiri = temp[0];
-              // console.log("#cicli: " + temp[0]);
+
+              if ( temp.length > 1 &&
+                    (temp[1].slice(0, -1)).toLowerCase() + "_"
+                    + temp[1].charAt(temp[1].length-1) in dictionaryParser
+                    ||
+                    temp[1].toLowerCase() + "_4" in dictionaryParser
+                  )
+              {
+                if (
+                    (temp[1].slice(0, -1)).toLowerCase() + "_"
+                    + temp[1].charAt(temp[1].length-1) in dictionaryParser)
+                {
+                  notaDopo = (dictionaryParser[(temp[1].slice(0, -1)).toLowerCase() + "_"
+                                          + temp[1].charAt(temp[1].length-1)]);
+                } else {
+                  notaDopo = (dictionaryParser[temp[1].toLowerCase() + "_4"]);
+                }
+              }
               break;
             }
           }
@@ -141,6 +160,7 @@ function suona(canzoneEsistente){
             // console.log("sas " + listaMusicaCiclo.length + listaMusicaCiclo);
             listaMusicaFinale = listaMusicaFinale.concat(listaMusicaCiclo);
           }
+          if (notaDopo !== "") listaMusicaFinale.push(notaDopo);
 
         }
     }

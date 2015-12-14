@@ -1,6 +1,19 @@
 // !!! al momento mancano alcuni casi da gestire e si riesce a mettere un ciclo dopo la virgola di un ciclo
 //  ciò è ovviamente sbagliato e va gestito sennò la funziona suona si incazza
 
+function checkNota(probabileNota){ // torna true se NON è una nota
+  if (
+    !(probabileNota.toLowerCase() in dictionaryParser) &&
+    !((probabileNota.slice(0, -1)).toLowerCase() + "_"
+    + probabileNota.charAt(probabileNota.length-1) in dictionaryParser)
+    &&
+    !(probabileNota.toLowerCase() + "_4" in dictionaryParser))
+  {
+    return true;
+  }
+  return false;
+}
+
 $(window).load(function(){
   $("textarea").data("oldValue", function() {
       return this.value;
@@ -17,13 +30,7 @@ $(window).load(function(){
             }
             if (temp[i] === "") {
               //non mi interessa
-            } else if (
-                  !(temp[i].toLowerCase() in dictionaryParser) &&
-                  !((temp[i].slice(0, -1)).toLowerCase() + "_"
-                  + temp[i].charAt(temp[i].length-1) in dictionaryParser)
-                  &&
-                  !(temp[i].toLowerCase() + "_4" in dictionaryParser)
-                )
+            } else if (checkNota(temp[i]))
             {
               //dovrei prima assicurarmi che non sei un ciclo
               //ovvero controllare "ripeti" + "(" + serie di note + "," + numero + ")"
@@ -47,55 +54,102 @@ $(window).load(function(){
                   pLeft--;
                   // caso: "ripeti(*" //con * che deve essere cosa buona
                   var appoggio = temp[i].split("ripeti(");
-                  if (appoggio[0] === "" &&
-                      (
-                        (appoggio[1].toLowerCase() in dictionaryParser) ||
-                        ((appoggio[1].slice(0, -1)).toLowerCase() + "_"
-                        + appoggio[1].charAt(appoggio[1].length-1) in dictionaryParser)
-                        ||
-                        (appoggio[1].toLowerCase() + "_4" in dictionaryParser)
-                      )
-                    )
+                  if (appoggio[0] === "" && !checkNota(appoggio[1]))
                   {
                     //tutto ok
-                  } else { //manca il caso in cui "ripeti(*,*)*" e "ripeti(*," //unica nota
+                  } else {
+                    //unica nota
+                    if (appoggio[1].indexOf(",") > -1) { //caso in cui "ripeti(*,*)*" e "ripeti(*,"
+                      comma--;
+
+                      appoggio = appoggio[1].split(",")
+                      if (!checkNota(appoggio[0]))
+                      {
+                        if ( appoggio[1] === "") {
+                          //tutto ok
+                        } else {
+                          // => ripeti(*,* || ripeti(*,*) || ripeti(*,*)*
+                          appoggio = appoggio[1].split(")");
+                          console.log("dffa", appoggio);
+                          if (appoggio.length >= 2) { //se non fosse così significa che non avrei la parentesi tonda quindi devo dare errore
+                            //o ho numero + nota || numero + vuoto
+                            pRight--;
+                            console.log( !isNaN(appoggio[0]),!checkNota(appoggio[1]) , appoggio[1] === "" );
+                            if ( !isNaN(appoggio[0]) && (!checkNota(appoggio[1]) || appoggio[1] === "") )
+                            {
+                                num--;
+                                console.log("ksgj");
+                                //tutto ok
+                            } else {
+                              booleano = false;
+                              break;
+                            }
+                          } else if(!isNaN(appoggio[0])){
+                            num--;
+                          } else {
+                            booleano = false;
+                            break;
+                          }
+                        }
+                      }
+                    } else {
+                      booleano = false;
+                      break;
+                    }
+                  }
+                }
+              } else if (temp[i].indexOf("(") > -1) {
+                pLeft--;
+                var appoggio4 = temp[i].split("(");
+                console.log(appoggio4);
+                if (appoggio4.length >= 1) {
+                  if (appoggio4[0] === "" && !checkNota(appoggio4[1])) {
+                    //tutto ok
+                  } else {
                     booleano = false;
                     break;
                   }
+                } else {
+                  booleano = false;
+                  break;
                 }
               } else if(comma === 0 && !isNaN(temp[i])){ //solo se il numero è da solo
-                num--; console.log("asd1 " +  temp[i] + " " + !isNaN(temp[i]) + " " + !isNaN("") );
+                num--;
               } else if(temp[i].indexOf(",") > -1){
-                //manca il caso in cui "*,*)" && "*,*)*"
                 comma--;
                 if (!temp[i].localeCompare(",")) {
+                  // non mi ricordo a che serve questo caso
                 }  else {
                   var appoggio2 = temp[i].split(",");
-                  if (appoggio2[0] === ""  && !isNaN(appoggio2[1])) {
+                  if (appoggio2[0] === ""  && !isNaN(appoggio2[1])) { // ,*
                         // tutto ok
-                        num--; console.log("asd2")
-                  } else if(appoggio2[1] === ""  &&
-                      (
-                        (appoggio2[0].toLowerCase() in dictionaryParser) ||
-                        ((appoggio2[0].slice(0, -1)).toLowerCase() + "_"
-                        + appoggio2[0].charAt(appoggio2[0].length-1) in dictionaryParser)
-                        ||
-                        (appoggio2[0].toLowerCase() + "_4" in dictionaryParser)
-                      )){
+                        num--;
+                  } else if(appoggio2[1] === ""  && !checkNota(appoggio2[0])){ // *,
                         //tutto ok
-                      } else if (!isNaN(appoggio2[1])  &&
-                          (
-                            (appoggio2[0].toLowerCase() in dictionaryParser) ||
-                            ((appoggio2[0].slice(0, -1)).toLowerCase() + "_"
-                            + appoggio2[0].charAt(appoggio2[0].length-1) in dictionaryParser)
-                            ||
-                            (appoggio2[0].toLowerCase() + "_4" in dictionaryParser)
-                          )){
-                            // tutto ok
-                            num--; console.log("asd3")
-                          } else {
-                            booleano = false;
-                          }
+                  } else if (!isNaN(appoggio2[1]) && !checkNota(appoggio2[0])){ // *,*
+                    // tutto ok
+                    num--;
+                  } else {
+                    // caso in cui  || "*,*)" || "*,*)*"
+
+                    appoggio2 = appoggio2[1].split(")");
+                    if (appoggio2.length >= 2) {
+                      pRight--;
+                      if (appoggio2[1] === "" && !isNaN(appoggio2[0])) { // " ,*)"
+                        //tutto ok
+                        num--;
+                      } else if (!isNaN(appoggio2[0]) && !checkNota(appoggio2[1])) { // " ,*)*"
+                        //tutto ok
+                        num--;
+                      } else {
+                        booleano = false;
+                        break;
+                      }
+                    } else {
+                      booleano = false;
+                      break;
+                    }
+                  }
                 }
               } else if(temp[i].indexOf(")") > -1){
                 pRight--;
@@ -107,25 +161,10 @@ $(window).load(function(){
                     //tutto ok
                     num--;
                   } else if(
-                      appoggio3[0]==="" &&
-                      (
-                        (appoggio3[1].toLowerCase() in dictionaryParser) ||
-                        ((appoggio3[1].slice(0, -1)).toLowerCase() + "_"
-                        + appoggio3[1].charAt(appoggio3[1].length-1) in dictionaryParser)
-                        ||
-                        (appoggio3[1].toLowerCase() + "_4" in dictionaryParser)
-                      )
-                  ){
+                      appoggio3[0]=== "" && !checkNota(appoggio3[1])){
                     //tutto ok
-                  } else if(!isNaN(appoggio3[0]) &&
-                    (
-                      (appoggio3[1].toLowerCase() in dictionaryParser) ||
-                      ((appoggio3[1].slice(0, -1)).toLowerCase() + "_"
-                      + appoggio3[1].charAt(appoggio3[1].length-1) in dictionaryParser)
-                      ||
-                      (appoggio3[1].toLowerCase() + "_4" in dictionaryParser)
-                    )){
-                      num--; console.log("asd4")
+                  } else if(!isNaN(appoggio3[0]) && !checkNota(appoggio3[1])){
+                      num--;
                       //tutto ok
                   } else {
                     booleano = false;
@@ -137,6 +176,7 @@ $(window).load(function(){
             }
           } //chiusura for
           if (pLeft !== 0 || comma !== 0 || pRight !== 0 || num !== 0 ) {
+            console.log("pLeft comma pRight num")
             console.log(pLeft + " " + comma + " " + pRight + " " + num)
             booleano = false;
           }

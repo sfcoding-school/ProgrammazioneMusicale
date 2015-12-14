@@ -15,6 +15,23 @@ Array.prototype.last = function () {
   return this[this.length - 1];
 };
 
+function suona2(canzoneEsistente){
+  if (window.glob || stoSuonando) {
+    console.log("if in suona " + window.glob + " " + stoSuonando);
+    return;
+  }
+
+  var text = document.getElementById("theId");
+  var listaDaTextArea = (text.value).split(" ");
+  if (typeof canzoneEsistente !== 'undefined') {
+    listaDaTextArea = (canzoneEsistente).split(" ");
+  }
+  console.log("suona-> ", listaDaTextArea);
+  var listaMusicaFinale = [];
+
+
+}
+
 function suona(canzoneEsistente){
   if (window.glob || stoSuonando) {
     console.log("if in suona " + window.glob + " " + stoSuonando);
@@ -26,7 +43,7 @@ function suona(canzoneEsistente){
   if (typeof canzoneEsistente !== 'undefined') {
     listaDaTextArea = (canzoneEsistente).split(" ");
   }
-  console.log("suona-> " + listaDaTextArea);
+  console.log("suona-> ", listaDaTextArea);
   var listaMusicaFinale = [];
   var i=0;
   while(i<listaDaTextArea.length){

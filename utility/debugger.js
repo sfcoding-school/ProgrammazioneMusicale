@@ -62,7 +62,7 @@ $(window).load(function(){
                     if (appoggio[1].indexOf(",") > -1) { //caso in cui "ripeti(*,*)*" e "ripeti(*,"
                       comma--;
 
-                      appoggio = appoggio[1].split(",")
+                      appoggio = appoggio[1].split(",");
                       if (!checkNota(appoggio[0]))
                       {
                         if ( appoggio[1] === "") {
@@ -70,15 +70,12 @@ $(window).load(function(){
                         } else {
                           // => ripeti(*,* || ripeti(*,*) || ripeti(*,*)*
                           appoggio = appoggio[1].split(")");
-                          console.log("dffa", appoggio);
                           if (appoggio.length >= 2) { //se non fosse così significa che non avrei la parentesi tonda quindi devo dare errore
                             //o ho numero + nota || numero + vuoto
                             pRight--;
-                            console.log( !isNaN(appoggio[0]),!checkNota(appoggio[1]) , appoggio[1] === "" );
                             if ( !isNaN(appoggio[0]) && (!checkNota(appoggio[1]) || appoggio[1] === "") )
                             {
                                 num--;
-                                console.log("ksgj");
                                 //tutto ok
                             } else {
                               booleano = false;
@@ -168,15 +165,17 @@ $(window).load(function(){
                       //tutto ok
                   } else {
                     booleano = false;
+                    break;
                   }
                 }
               } else {
                 booleano = false;
+                break;
               }
             }
           } //chiusura for
           if (pLeft !== 0 || comma !== 0 || pRight !== 0 || num !== 0 ) {
-            console.log("pLeft comma pRight num")
+            console.log("pLeft comma pRight num");
             console.log(pLeft + " " + comma + " " + pRight + " " + num)
             booleano = false;
           }

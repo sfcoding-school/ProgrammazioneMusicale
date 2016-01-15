@@ -21,7 +21,7 @@ $(window).load(function(){
       var $this = $(this);
       if (this.value !== $this.data("oldValue")) {
           var temp = (this.value).split(" ");
-          var testCasuale = ["do", "re", "mi", "fa", "la", "si"];
+          var testCasuale = {"do", "re", "mi", "fa", "la", "si","pausa"};
           var booleano = true;
           var pLeft = 0, comma = 0, pRight = 0, num = 0;
           for (var i = 0; i < temp.length; i++) {

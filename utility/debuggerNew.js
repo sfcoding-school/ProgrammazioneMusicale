@@ -1,18 +1,6 @@
 // !!! al momento mancano alcuni casi da gestire e si riesce a mettere un ciclo dopo la virgola di un ciclo
 //  ciò è ovviamente sbagliato e va gestito sennò la funziona suona si incazza
 
-function checkNota(probabileNota){ // torna true se NON è una nota
-  if (
-    !(probabileNota.toLowerCase() in dictionaryParser) &&
-    !((probabileNota.slice(0, -1)).toLowerCase() + "_"
-    + probabileNota.charAt(probabileNota.length-1) in dictionaryParser)
-    &&
-    !(probabileNota.toLowerCase() + "_5" in dictionaryParser))
-  {
-    return true;
-  }
-  return false;
-}
 
 $(window).load(function(){
   $("textarea").data("oldValue", function() {
@@ -21,6 +9,7 @@ $(window).load(function(){
       var $this = $(this);
       if (this.value !== $this.data("oldValue")) {
 
+          var booleano = true
           var head = ""
           var tail = (this.value)
           var suona = []
@@ -28,7 +17,7 @@ $(window).load(function(){
           tail.toLowerCase()
           tail = tail.replace(/ripeti/g,"@")
 
-          console.log("tailFOR ", tail)
+          //console.log("tailFOR ", tail)
 
           while (tail.indexOf("@")!= -1){
             var startRipeti = tail.lastIndexOf("@")
@@ -44,14 +33,16 @@ $(window).load(function(){
             var temp = ripeti.split(",")
             var iterator
 
-            console.log("tailFOR ", ripeti)
+            //console.log("tailFOR ", ripeti)
             if (temp.length != 2){
+              booleano = false
               break
             } else {
               temp[1] = temp[1].replace( /[^\d.]/g, '' )
               iterator = parseInt(temp[1])
               //console.log("tailFOR ", iterator)
               if (isNaN(iterator)){
+                booleano = false
                 break
               }
             
@@ -60,9 +51,11 @@ $(window).load(function(){
                 temp[0] = temp[0].replace("("," ")
                 temp[0] = temp[0] + " "
               } else {
+                booleano = false
                 break
               }
             }
+
             for (var i = 0; i < iterator; i++){
               toAdd += temp[0]
             }
@@ -74,177 +67,55 @@ $(window).load(function(){
 
             console.log("tail ", tail)
 
-            // while (tail.length != 0 ){
-            //   if (tail[0] != " " && head == ""){
-            //     head += tail[0]
-            //     tail = tail[1,-1]
-            //   }
-            //   else if (tail[0] == " "){
-            //     tail = tail[1,-1]
-            //   }
-            // }
+            while (tail.length != 0 ){
+
+              var temp = tail.substring(0,1)
+              if (temp != " "){
+                head = head + temp
+                //tail = tail.substring(1,tail.length)
+              }
+              else {
+                if (head!=""){
+                  //parse HEAD
+                  parsed = head.replace("_","")
+                  tono = parseInt(parsed.replace( /[^\d.]/g, ''))
+                  parsed = parsed.replace( /[0-9]/g, '')
+
+                  //console.log("tailqwe ", parsed)
+
+                  if (parsed.match("do|re|mi|fa|sol|la|si")) {
+
+                    if (isNaN(tono)){
+                      parsed = parsed + "_5"
+                    } else if (tono > 0 && tono < 7){
+                      parsed = parsed + "_" + tono
+                    } else {
+                      booleano = false
+                      break
+                    }
+
+                    suona.push(parsed)
+
+                    console.log("nota parsata ", parsed)
+                  } else if (parsed == "pausa"){
+                    suona.push(parsed)
+                  }else {
+                    booleano = false
+                  }
+
+                  head = ""
+                }
+                //tail = tail.substring(1,tail.length)
+              }
+
+              tail = tail.substring(1,tail.length)
+            }
+
+            console.log("tail ", suona)
 
 
           
-          var temp = (this.value).split(" ");
-          var testCasuale = ["do", "re", "mi", "fa", "la", "si"];
-          var booleano = true;
-          var pLeft = 0, comma = 0, pRight = 0, num = 0;
-          for (var i = 0; i < temp.length; i++) {
-            if (i == temp.length-1 && temp[i] === "") {
-              break;
-            }
-            if (temp[i] === "") {
-              //non mi interessa
-            } else if (checkNota(temp[i]))
-            {
-              //dovrei prima assicurarmi che non sei un ciclo
-              //ovvero controllare "ripeti" + "(" + serie di note + "," + numero + ")"
-              //se non è nel dizionario può essere solo una di queste cose:
-              // - ripeti(
-              // - ripeti
-              // - ripeti(* //con * che deve essere cosa buona
-              // - numero
-              // - ,
-              // - *, //con * nota
-              // - ,* //con * numero
-              // - *) //con * numero
-              // - )
-              if (temp[i].indexOf("ripeti") > -1) {
-                pLeft++;  comma++;  pRight++; num++;
-                if (!temp[i].localeCompare("ripeti")) {
-                  // tutto ok
-                } else if (!temp[i].localeCompare("ripeti(")) {
-                  pLeft--;
-                } else {
-                  pLeft--;
-                  // caso: "ripeti(*" //con * che deve essere cosa buona
-                  var appoggio = temp[i].split("ripeti(");
-                  if (appoggio[0] === "" && !checkNota(appoggio[1]))
-                  {
-                    //tutto ok
-                  } else {
-                    //unica nota
-                    if (appoggio[1].indexOf(",") > -1) { //caso in cui "ripeti(*,*)*" e "ripeti(*,"
-                      comma--;
-
-                      appoggio = appoggio[1].split(",");
-                      if (!checkNota(appoggio[0]))
-                      {
-                        if ( appoggio[1] === "") {
-                          //tutto ok
-                        } else {
-                          // => ripeti(*,* || ripeti(*,*) || ripeti(*,*)*
-                          appoggio = appoggio[1].split(")");
-                          if (appoggio.length >= 2) { //se non fosse così significa che non avrei la parentesi tonda quindi devo dare errore
-                            //o ho numero + nota || numero + vuoto
-                            pRight--;
-                            if ( !isNaN(appoggio[0]) && (!checkNota(appoggio[1]) || appoggio[1] === "") )
-                            {
-                                num--;
-                                //tutto ok
-                            } else {
-                              booleano = false;
-                              break;
-                            }
-                          } else if(!isNaN(appoggio[0])){
-                            num--;
-                          } else {
-                            booleano = false;
-                            break;
-                          }
-                        }
-                      }
-                    } else {
-                      booleano = false;
-                      break;
-                    }
-                  }
-                }
-              } else if (temp[i].indexOf("(") > -1) {
-                pLeft--;
-                var appoggio4 = temp[i].split("(");
-                console.log(appoggio4);
-                if (appoggio4.length >= 1) {
-                  if (appoggio4[0] === "" && !checkNota(appoggio4[1])) {
-                    //tutto ok
-                  } else {
-                    booleano = false;
-                    break;
-                  }
-                } else {
-                  booleano = false;
-                  break;
-                }
-              } else if(comma === 0 && !isNaN(temp[i])){ //solo se il numero è da solo
-                num--;
-              } else if(temp[i].indexOf(",") > -1){
-                comma--;
-                if (!temp[i].localeCompare(",")) {
-                  // non mi ricordo a che serve questo caso
-                }  else {
-                  var appoggio2 = temp[i].split(",");
-                  if (appoggio2[0] === ""  && !isNaN(appoggio2[1])) { // ,*
-                        // tutto ok
-                        num--;
-                  } else if(appoggio2[1] === ""  && !checkNota(appoggio2[0])){ // *,
-                        //tutto ok
-                  } else if (!isNaN(appoggio2[1]) && !checkNota(appoggio2[0])){ // *,*
-                    // tutto ok
-                    num--;
-                  } else {
-                    // caso in cui  || "*,*)" || "*,*)*"
-
-                    appoggio2 = appoggio2[1].split(")");
-                    if (appoggio2.length >= 2) {
-                      pRight--;
-                      if (appoggio2[1] === "" && !isNaN(appoggio2[0])) { // " ,*)"
-                        //tutto ok
-                        num--;
-                      } else if (!isNaN(appoggio2[0]) && !checkNota(appoggio2[1])) { // " ,*)*"
-                        //tutto ok
-                        num--;
-                      } else {
-                        booleano = false;
-                        break;
-                      }
-                    } else {
-                      booleano = false;
-                      break;
-                    }
-                  }
-                }
-              } else if(temp[i].indexOf(")") > -1){
-                pRight--;
-                if (!temp[i].localeCompare(")")) {
-                  //tutto ok
-                } else {
-                  var appoggio3 = temp[i].split(")");
-                  if (!isNaN(appoggio3[0]) && appoggio3[1]==="") {
-                    //tutto ok
-                    num--;
-                  } else if(
-                      appoggio3[0]=== "" && !checkNota(appoggio3[1])){
-                    //tutto ok
-                  } else if(!isNaN(appoggio3[0]) && !checkNota(appoggio3[1])){
-                      num--;
-                      //tutto ok
-                  } else {
-                    booleano = false;
-                    break;
-                  }
-                }
-              } else {
-                booleano = false;
-                break;
-              }
-            }
-          } //chiusura for
-          if (pLeft !== 0 || comma !== 0 || pRight !== 0 || num !== 0 ) {
-            console.log("pLeft comma pRight num");
-            console.log(pLeft + " " + comma + " " + pRight + " " + num)
-            booleano = false;
-          }
+          
           if (booleano) {
               $("#errore").html("");
               $("#ok").html("OK!");
@@ -254,6 +125,8 @@ $(window).load(function(){
               $("#ok").html("");
               window.glob = true;
           }
-      }
+        }
+      
+
   });
 });

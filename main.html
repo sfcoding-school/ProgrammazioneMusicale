@@ -17,6 +17,8 @@
     <textarea id="theId" style="resize: none; width: 600px; height: 300px;" rows="4" cols="50"></textarea>
     <input type="button" value="suona" onclick="suona()" />
 
+    <input type="button" value="do" onclick="document.getElementById('theId').value += ' ' + this.value;" />
+
     <input type="image" src="img/mario.gif"  width="48" height="48"
     onmousedown="suona(mario);">
 

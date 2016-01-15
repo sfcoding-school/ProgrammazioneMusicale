@@ -20,6 +20,72 @@ $(window).load(function(){
   }).keyup(function() {
       var $this = $(this);
       if (this.value !== $this.data("oldValue")) {
+
+          var head = ""
+          var tail = (this.value)
+          var suona = []
+
+          tail.toLowerCase()
+          tail = tail.replace(/ripeti/g,"@")
+
+          console.log("tailFOR ", tail)
+
+          while (tail.indexOf("@")!= -1){
+            var startRipeti = tail.lastIndexOf("@")
+            var endRipeti
+            var toAdd = ""
+            for (var i = startRipeti; i < tail.length; i++) {
+              if (tail[i]==")"){
+                endRipeti = i;
+                break
+              }
+            }
+            var ripeti = tail.substring(startRipeti+1,endRipeti)
+            var temp = ripeti.split(",")
+            var iterator
+
+            console.log("tailFOR ", ripeti)
+            if (temp.length != 2){
+              break
+            } else {
+              temp[1] = temp[1].replace( /[^\d.]/g, '' )
+              iterator = parseInt(temp[1])
+              //console.log("tailFOR ", iterator)
+              if (isNaN(iterator)){
+                break
+              }
+            
+
+              if (temp[0].indexOf("(")!= -1){
+                temp[0] = temp[0].replace("("," ")
+                temp[0] = temp[0] + " "
+              } else {
+                break
+              }
+            }
+            for (var i = 0; i < iterator; i++){
+              toAdd += temp[0]
+            }
+
+            tail = tail.substring(0,startRipeti -1) + toAdd + tail.substring(endRipeti+1,tail.length)
+            //console.log("tailFOR ", tail)
+
+          }
+
+            console.log("tail ", tail)
+
+            // while (tail.length != 0 ){
+            //   if (tail[0] != " " && head == ""){
+            //     head += tail[0]
+            //     tail = tail[1,-1]
+            //   }
+            //   else if (tail[0] == " "){
+            //     tail = tail[1,-1]
+            //   }
+            // }
+
+
+          
           var temp = (this.value).split(" ");
           var testCasuale = ["do", "re", "mi", "fa", "la", "si"];
           var booleano = true;

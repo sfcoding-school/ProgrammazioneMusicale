@@ -22,7 +22,7 @@ function checkNota(probabileNota){ // torna true se NON è una nota
     !(probabileNota.toLowerCase() in dictionaryParser) &&
     !((probabileNota.slice(0, -1)).toLowerCase() + "_" +
     probabileNota.charAt(probabileNota.length-1) in dictionaryParser) &&
-    !(probabileNota.toLowerCase() + "_4" in dictionaryParser))
+    !(probabileNota.toLowerCase() + "_5" in dictionaryParser))
   {
     return true;
   }
@@ -69,7 +69,7 @@ function suona(canzoneEsistente){
             {
               listaMusicaCiclo.push(dictionaryParser[(appoggio[1].slice(0, -1)).toLowerCase() + "_" + appoggio[1].charAt(appoggio[1].length-1)]);
             } else {
-              listaMusicaCiclo.push(dictionaryParser[appoggio[1].toLowerCase() + "_4"]);
+              listaMusicaCiclo.push(dictionaryParser[appoggio[1].toLowerCase() + "_5"]);
             }
 
           } else {
@@ -84,7 +84,7 @@ function suona(canzoneEsistente){
                 {
                   listaMusicaCiclo.push(dictionaryParser[(appoggio[0].slice(0, -1)).toLowerCase() + "_" + appoggio[0].charAt(appoggio[0].length-1)]);
                 } else {
-                  listaMusicaCiclo.push(dictionaryParser[appoggio[0].toLowerCase() + "_4"]);
+                  listaMusicaCiclo.push(dictionaryParser[appoggio[0].toLowerCase() + "_5"]);
                 }
 
                 if ( appoggio[1] === "") {
@@ -105,7 +105,7 @@ function suona(canzoneEsistente){
                           {
                             quellaDopo = dictionaryParser[(appoggio[1].slice(0, -1)).toLowerCase() + "_" + appoggio[1].charAt(appoggio[1].length-1)];
                           } else {
-                            quellaDopo = dictionaryParser[appoggio[1].toLowerCase() + "_4"];
+                            quellaDopo = dictionaryParser[appoggio[1].toLowerCase() + "_5"];
                           }
                         }
                     }
@@ -128,7 +128,7 @@ function suona(canzoneEsistente){
             {
               listaMusicaCiclo.push(dictionaryParser[(appoggio4[1].slice(0, -1)).toLowerCase() + "_" + appoggio4[1].charAt(appoggio4[1].length-1)]);
             } else {
-              listaMusicaCiclo.push(dictionaryParser[appoggio4[1].toLowerCase() + "_4"]);
+              listaMusicaCiclo.push(dictionaryParser[appoggio4[1].toLowerCase() + "_5"]);
             }
           }
         }
@@ -150,7 +150,7 @@ function suona(canzoneEsistente){
                 {
                   listaMusicaCiclo.push(dictionaryParser[(appoggio2[0].slice(0, -1)).toLowerCase() + "_" + appoggio2[0].charAt(appoggio2[0].length-1)]);
                 } else {
-                  listaMusicaCiclo.push(dictionaryParser[appoggio2[0].toLowerCase() + "_4"]);
+                  listaMusicaCiclo.push(dictionaryParser[appoggio2[0].toLowerCase() + "_5"]);
                 }
           } else if (!isNaN(appoggio2[1]) && !checkNota(appoggio2[0])){ // *,*
             // tutto ok
@@ -160,7 +160,7 @@ function suona(canzoneEsistente){
             {
               listaMusicaCiclo.push(dictionaryParser[(appoggio2[0].slice(0, -1)).toLowerCase() + "_" + appoggio2[0].charAt(appoggio2[0].length-1)]);
             } else {
-              listaMusicaCiclo.push(dictionaryParser[appoggio2[0].toLowerCase() + "_4"]);
+              listaMusicaCiclo.push(dictionaryParser[appoggio2[0].toLowerCase() + "_5"]);
             }
           } else {
             // caso in cui  || "*,*)" || "*,*)*"
@@ -179,7 +179,7 @@ function suona(canzoneEsistente){
                 {
                   quellaDopo = dictionaryParser[(appoggio2[1].slice(0, -1)).toLowerCase() + "_" + appoggio2[1].charAt(appoggio2[1].length-1)];
                 } else {
-                  quellaDopo = dictionaryParser[appoggio2[1].toLowerCase() + "_4"];
+                  quellaDopo = dictionaryParser[appoggio2[1].toLowerCase() + "_5"];
                 }
               }
             }
@@ -203,7 +203,7 @@ function suona(canzoneEsistente){
             {
               listaMusicaFinale.push(dictionaryParser[(appoggio3[1].slice(0, -1)).toLowerCase() + "_" + appoggio3[1].charAt(appoggio3[1].length-1)]);
             } else {
-              listaMusicaFinale.push(dictionaryParser[appoggio3[1].toLowerCase() + "_4"]);
+              listaMusicaFinale.push(dictionaryParser[appoggio3[1].toLowerCase() + "_5"]);
             }
           } else if(!isNaN(appoggio3[0]) && !checkNota(appoggio3[1])){
               num--;
@@ -213,7 +213,7 @@ function suona(canzoneEsistente){
               {
                 listaMusicaFinale.push(dictionaryParser[(appoggio3[1].slice(0, -1)).toLowerCase() + "_" + appoggio3[1].charAt(appoggio3[1].length-1)]);
               } else {
-                listaMusicaFinale.push(dictionaryParser[appoggio3[1].toLowerCase() + "_4"]);
+                listaMusicaFinale.push(dictionaryParser[appoggio3[1].toLowerCase() + "_5"]);
               }
           }
         }
@@ -227,7 +227,7 @@ function suona(canzoneEsistente){
         {
           listaMusicaCiclo.push(dictionaryParser[(temp[i].slice(0, -1)).toLowerCase() + "_" + temp[i].charAt(temp[i].length-1)]);
         } else {
-          listaMusicaCiclo.push(dictionaryParser[temp[i].toLowerCase() + "_4"]);
+          listaMusicaCiclo.push(dictionaryParser[temp[i].toLowerCase() + "_5"]);
         }
       } else {
           if (
@@ -235,7 +235,7 @@ function suona(canzoneEsistente){
           {
             listaMusicaFinale.push(dictionaryParser[(temp[i].slice(0, -1)).toLowerCase() + "_" + temp[i].charAt(temp[i].length-1)]);
           } else {
-            listaMusicaFinale.push(dictionaryParser[temp[i].toLowerCase() + "_4"]);
+            listaMusicaFinale.push(dictionaryParser[temp[i].toLowerCase() + "_5"]);
           }
       }
     }

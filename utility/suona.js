@@ -29,7 +29,26 @@ function checkNota(probabileNota){ // torna true se NON è una nota
   return false;
 }
 
-function suona(canzoneEsistente){
+function suona(){
+  if (window.glob || stoSuonando) {
+    console.log("if in suona " + window.glob + " " + stoSuonando);
+    return;
+  }
+
+  var arrayNote = window.glob2;
+  var listaMusicaFinale = [];
+
+  for (var i = 0; i < arrayNote.length; i++) {
+
+    listaMusicaFinale.push(dictionaryParser[arrayNote[i]]);
+  }
+
+  stoSuonando = true;
+  riproduci(listaMusicaFinale);
+
+}
+
+function suona2(canzoneEsistente){
   if (window.glob || stoSuonando) {
     console.log("if in suona " + window.glob + " " + stoSuonando);
     return;
@@ -253,7 +272,6 @@ function suona(canzoneEsistente){
       quellaDopo = -1;
     }
   } //chiusura for
-
   stoSuonando = true;
   riproduci(listaMusicaFinale);
 

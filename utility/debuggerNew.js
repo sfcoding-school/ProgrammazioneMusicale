@@ -1,6 +1,10 @@
 // !!! al momento mancano alcuni casi da gestire e si riesce a mettere un ciclo dopo la virgola di un ciclo
 //  ciò è ovviamente sbagliato e va gestito sennò la funziona suona si incazza
 
+function matchExact(r, str) {
+   var match = str.match(r);
+   return match !== null && str == match[0];
+}
 
 $(window).load(function(){
   $("textarea").data("oldValue", function() {
@@ -45,7 +49,7 @@ $(window).load(function(){
                 booleano = false
                 break
               }
-            
+
 
               if (temp[0].indexOf("(")!= -1){
                 temp[0] = temp[0].replace("("," ")
@@ -67,15 +71,15 @@ $(window).load(function(){
 
             console.log("tail ", tail)
 
-            while (tail.length != 0 ){
+            while (tail.length >= 0 ){ // while(true)
 
-              var temp = tail.substring(0,1)
-              if (temp != " "){
-                head = head + temp
+              var temp1 = tail.substring(0,1)
+              if (temp1 != " " && temp1 !== ""){
+                head = head + temp1
                 //tail = tail.substring(1,tail.length)
               }
               else {
-                if (head!=""){
+                if (head !== ""){
                   //parse HEAD
                   parsed = head.replace("_","")
                   tono = parseInt(parsed.replace( /[^\d.]/g, ''))
@@ -83,8 +87,8 @@ $(window).load(function(){
 
                   //console.log("tailqwe ", parsed)
 
-                  if (parsed.match("do|re|mi|fa|sol|la|si")) {
-
+                  if (matchExact("do|re|mi|fa|sol|la|si", parsed)) {
+                    console.log("parsed", parsed)
                     if (isNaN(tono)){
                       parsed = parsed + "_5"
                     } else if (tono > 0 && tono < 7){
@@ -101,21 +105,23 @@ $(window).load(function(){
                     suona.push(parsed)
                   }else {
                     booleano = false
+                    break
                   }
 
                   head = ""
                 }
                 //tail = tail.substring(1,tail.length)
               }
-
+              if(tail.length === 0) break;
               tail = tail.substring(1,tail.length)
             }
 
-            console.log("tail ", suona)
+            console.log("SUONA ", suona)
+            window.glob2 = suona;
 
 
-          
-          
+
+
           if (booleano) {
               $("#errore").html("");
               $("#ok").html("OK!");
@@ -126,7 +132,7 @@ $(window).load(function(){
               window.glob = true;
           }
         }
-      
+
 
   });
 });

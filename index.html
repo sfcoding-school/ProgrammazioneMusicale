@@ -10,8 +10,6 @@
     <script src="javascripts/main.js"></script>
     <script src="javascripts/jquery-1.11.3.min.js"></script>
     <script src="javascripts/riffwave.js"></script>
-    <script src="javascripts/noteMusicali.js"></script>
-    <script src="javascripts/corpo.js"></script>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -19,84 +17,13 @@
 
   </head>
   <body>
-<script type='text/javascript'>//<![CDATA[
-$(window).load(function(){
-  $("textarea").data("oldValue", function() {
-      return this.value;
-  }).keyup(function() {
-      var $this = $(this);
-      if (this.value !== $this.data("oldValue")) {
-          var temp = (this.value).split(" ")
-          var testCasuale = ["do", "re", "mi", "fa", "la", "si"]
-          var booleano = true;
-          for (var i = 0; i < temp.length; i++) {
-            if (temp[i] != "") {
-              lunghezzaAttuale = temp[i].length;
-              if (lunghezzaAttuale > 4 || lunghezzaAttuale ==1) {
-                booleano = false;
-                
-                break;
-              };
-              if (lunghezzaAttuale == 4) {
-                  //devi essere sol + numero
-                  if(!isNaN(temp[i].charAt(lunghezzaAttuale-1)) && temp[i].slice(0, -1) == "sol"){
-                    //OK!
-                                      } else{
-                    booleano = false;
-                    
-                    break;
-                  }
-              };
-              if (lunghezzaAttuale == 3) {
-                //o sei sol o sei uno degli altri + numero
-                if (temp[i] == "sol") {
-                  //OK
-
-               } else {
-                  if(!isNaN(temp[i].charAt(lunghezzaAttuale-1)) && testCasuale.indexOf(temp[i].slice(0, -1)) > -1){
-                    //OK!
-                                      } else{
-                    booleano = false;
-                    
-                    break;
-                  }
-                };
-              };
-              if (lunghezzaAttuale == 2) {
-                //devi essere una delle note
-                if (testCasuale.indexOf(temp[i]) > -1) {
-                  //OK
-
-               }else{
-                  booleano = false;
-                  
-                  break;
-                };
-              };
-            };
-          };
-          if (booleano) {
-              $("#errore").html("");
-              $("#ok").html("OK!");
-              thereIsABug = false;
-          }else{
-              $("#errore").html("Errore!");
-              $("#ok").html("");
-              thereIsABug = true;
-          };
-          // // console.log("Changed! New value: " + this.value);
-          // // console.log((this.value).indexOf("ciao") > -1);
-          // if((this.value).indexOf("ciao") > -1){
-          //     // console.log("entrato");
-          //     $("#theId").val(this.value + "volevosoloaggiungeretesto");
-          // };
-
-          // $this.data("oldValue", this.value);
-      }
-  });
-});//]]> 
-
-</script>
+       <script type="text/javascript" >
+      window.glob = false;
+      window.glob2 = [];
+    </script>
+    <script src="javascripts/noteMusicali.js"></script>
+    <script src="javascripts/corpo.js"></script>
+    <script src="javascripts/debugger.js"></script>
       <header>
         <h1>Programmazione Musicale</h1>
         <p>[Modelli Geometrici]</p>
@@ -125,15 +52,16 @@ $(window).load(function(){
 
 <textarea id="theId" style="resize: none; width: 600px; height: 300px;" rows="4" cols="50">
 </textarea>
-<input type="button" value="TestTextArea" id="add" onclick="showtext()" />
+<input type="button" value="TestTextArea" id="add" onclick="suona()" />
+<input type="button" value="do" onclick="document.getElementById('theId').value += ' ' + this.value; debuggerF();" />
 
 <p id="ok"></p>
 <p id="errore"></p>
 
       </section>
       <footer>
-        <p><input type="image" src="images/mario.gif"  width="48" height="48" onmousedown="test([E_5, E_5, E_5, C_5, E_5, G_5, pausa, G_4, pausa, C_5, pausa, G_4, pausa,  E_4, pausa, A_4, B_4, A_s_4, A_4, pausa, G_4, E_5, G_5, A_5, F_5, G_5, E_5, C_5, D_5, B_4, C_5, pausa, G_4, pausa, E_4, A_4, B_4, A_s_4, A_4, pausa, G_4, E_5, G_5, A_5, F_5, G_5, E_5, C_5, D_5, B_4, pausa, G_5, Fa_s_5, Fa_5, D_5, E_5, A_s_4, A_4, C_5, pausa, A_4, C_5, D_5,
-G_5, Fa_s_5, Fa_5, D_5, E_5, C_6, C_6, C_6].reverse());"></p>
+       <!--  <p><input type="image" src="images/mario.gif"  width="48" height="48" onmousedown="test([E_5, E_5, E_5, C_5, E_5, G_5, pausa, G_4, pausa, C_5, pausa, G_4, pausa,  E_4, pausa, A_4, B_4, A_s_4, A_4, pausa, G_4, E_5, G_5, A_5, F_5, G_5, E_5, C_5, D_5, B_4, C_5, pausa, G_4, pausa, E_4, A_4, B_4, A_s_4, A_4, pausa, G_4, E_5, G_5, A_5, F_5, G_5, E_5, C_5, D_5, B_4, pausa, G_5, Fa_s_5, Fa_5, D_5, E_5, A_s_4, A_4, C_5, pausa, A_4, C_5, D_5,
+G_5, Fa_s_5, Fa_5, D_5, E_5, C_6, C_6, C_6].reverse());"></p> -->
         <p>Project maintained by <a href="https://github.com/sfcoding-school">sfcoding-school</a></p>
         <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
       </footer>

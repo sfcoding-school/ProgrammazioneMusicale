@@ -25,13 +25,13 @@ $(window).load(function(){
             var endRipeti
             var toAdd = ""
             for (var i = startRipeti; i < tail.length; i++) {
-              if (tail[i]==")"){
+              if (tail[i]=="]"){
                 endRipeti = i;
                 break
               }
             }
             var ripeti = tail.substring(startRipeti+1,endRipeti)
-            var temp = ripeti.split(",")
+            var temp = ripeti.split("-")
             var iterator
 
             //console.log("tailFOR ", ripeti)
@@ -48,7 +48,7 @@ $(window).load(function(){
               }
 
 
-              if (temp[0].indexOf("(")!= -1){
+              if (temp[0].indexOf("[")!= -1){
                 temp[0] = temp[0].replace("("," ")
                 temp[0] = temp[0] + " "
               } else {

@@ -7,10 +7,9 @@ function matchExact(r, str) {
 }
 
 $(window).load(function(){
-  $("#theId").keyup(function() { 
+  $("#theId2").keyup(function() { 
       var $this = $(this);
-      
-
+      //if (this.value !== $this.data("oldValue")) {
           var booleano = true
           var head = ""
           var tail = (this.value)
@@ -65,61 +64,64 @@ $(window).load(function(){
             tail = tail.substring(0,startRipeti -1) + toAdd + tail.substring(endRipeti+1,tail.length)
             //console.log("tailFOR ", tail)
 
+           console.log("sopra ", tail)
           }
 
-            console.log("tail ", tail)
+          tail = tail.replace(/suona/g,"#")
 
-            while (tail.length >= 0 ){ // while(true)
+          console.log("suona ", tail)
 
-              var temp1 = tail.substring(0,1)
-              if (temp1 != " " && temp1 !== ""){
-                head = head + temp1
-                //tail = tail.substring(1,tail.length)
+          while (tail.indexOf("#")!= -1){
+            console.log("a")
+            var startRipeti = tail.indexOf("#")
+            var endRipeti
+            var toAdd = ""
+            for (var i = startRipeti; i < tail.length; i++) {
+              if (tail[i]==")"){
+                endRipeti = i;
+                break
               }
-              else {
-                if (head !== ""){
-                  //parse HEAD
-                  parsed = head.replace("_","")
-                  tono = parseInt(parsed.replace( /[^\d.]/g, ''))
-                  parsed = parsed.replace( /[0-9]/g, '')
-
-                  //console.log("tailqwe ", parsed)
-
-                  if (matchExact("do|re|mi|fa|sol|la|si", parsed)) {
-                    console.log("parsed", parsed)
-                    if (isNaN(tono)){
-                      parsed = parsed + "_5"
-                    } else if (tono > 0 && tono < 7){
-                      parsed = parsed + "_" + tono
-                    } else {
-                      booleano = false
-                      break
-                    }
-
-                    suona.push(parsed)
-
-                    console.log("nota parsata ", parsed)
-                  } else if (parsed == "pausa"){
-                    suona.push(parsed)
-                  }else {
-                    booleano = false
-                    break
-                  }
-
-                  head = ""
-                }
-                //tail = tail.substring(1,tail.length)
-              }
-              if(tail.length === 0) break;
-              tail = tail.substring(1,tail.length)
             }
+            var ripeti = tail.substring(startRipeti+1,endRipeti)
+            var temp = ripeti.split(",")
+            var frequenza
+            var durata
 
-            console.log("SUONA ", suona)
-            window.glob2 = suona;
+            //console.log("tailFOR ", ripeti)
+            if (temp.length != 2){
+              booleano = false
+              break
+            } else {
+
+              temp[0] = temp[0].replace( /[^\d.]/g, '' )
+              frequenza = parseFloat(temp[0])
+              //console.log("tailFOR ", iterator)
+              if (isNaN(frequenza)){
+                booleano = false
+                break
+              }
+
+              temp[1] = temp[1].replace( /[^\d.]/g, '' )
+              durata = parseFloat(temp[1])
+              //console.log("tailFOR ", iterator)
+              if (isNaN(durata)){
+                booleano = false
+                break
+              }
 
 
 
+            }   
 
+            tail = tail.substring(endRipeti+1,tail.length)
+            suona.push([frequenza,durata])
+
+
+          }
+          console.log("SUONA ", suona)
+          window.glob3 = suona;
+
+            
           if (booleano) {
               $("#errore").html("");
               $("#ok").html("OK!");

@@ -10,18 +10,53 @@
   //   return data;
   // }
 
+
+  function simHertzRunTime(noteList) {
+
+    console.log(noteList)
+    var audio = new Audio();
+    var wave = new RIFFWAVE();
+    wave.header.sampleRate = 44100;
+
+      // Set sample rate to 44KHz  In digital audio, 44,100 Hz 
+      //(alternately represented as 44.1 kHz) is a common sampling frequency. Analog audio is recorded by 
+      //sampling it 44,100 times per second, and then these samples are used to reconstruct the audio signal when playing it back.
+
+    wave.header.numChannels = 1;
+    var data = [];
+    for (var j = 0; j < noteList.length; j++) {
+      hz = noteList[j][0]
+      s = noteList[j][1]
+      s_prec = 0
+      if (j!=0) s_prec = noteList[j-1][1]
+      var i = 0;
+      while (i< wave.header.sampleRate * s) { // la grandezza determina la durata .. la formula giusta dovrebbe essere wave.header.sampleRate * s
+        var t = i/wave.header.sampleRate;
+        data[(wave.header.sampleRate * s_prec * j) + i] = 128+Math.round(127*Math.sin(hz*t*2*Math.PI)); // 127 è l'ampiezza del segnale
+        i ++
+      }
+    }
+
+      wave.Make(data);
+      audio.src = wave.dataURI;
+      return audio;
+
+  }
+
   function simHertz(hz, s) {
-      s = typeof s !== 'undefined' ? s : 0.2;
+      s = typeof s !== 'undefined' ? s : 0.2; //default 0.2
       var audio = new Audio();
       var wave = new RIFFWAVE();
-      wave.header.sampleRate = 44100; // Set sample rate to 44KHz
+      wave.header.sampleRate = 44100; // Set sample rate to 44KHz  In digital audio, 44,100 Hz 
+      //(alternately represented as 44.1 kHz) is a common sampling frequency. Analog audio is recorded by 
+      //sampling it 44,100 times per second, and then these samples are used to reconstruct the audio signal when playing it back.
       wave.header.numChannels = 1;
       var data = [];
 
       var i = 0;
       while (i< wave.header.sampleRate * s) { // la grandezza determina la durata .. la formula giusta dovrebbe essere wave.header.sampleRate * s
         var t = i/wave.header.sampleRate;
-        data[i++] = 128+Math.round(127*Math.sin(hz*t*2*Math.PI));
+        data[i++] = 128+Math.round(127*Math.sin(hz*t*2*Math.PI)); // 127 è l'ampiezza del segnale
       }
 
       wave.Make(data);

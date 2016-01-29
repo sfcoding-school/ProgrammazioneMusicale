@@ -87,7 +87,7 @@ $(window).load(function(){
             var frequenza
             var durata
 
-            //console.log("tailFOR ", ripeti)
+            console.log("tailFOR ", ripeti)
             if (temp.length != 2){
               booleano = false
               break
@@ -100,10 +100,6 @@ $(window).load(function(){
                 booleano = false
                 break
               }
-
-/*              temp[1] = temp[1].replace( /[^\d.]/g, '' )
-              durata = parseFloat(temp[1])*/
-              //console.log("tailFOR ", iterator)
 
               var secondoSplit = temp[1].split("/")
               var numeratore = parseInt(secondoSplit[0])
@@ -134,6 +130,16 @@ $(window).load(function(){
 
             tail = tail.substring(endRipeti+1,tail.length)
             suona.push([frequenza,durata])
+
+            if (tail.indexOf("#") === -1){
+              tail = tail.replace(/[\s]/g, '' ) 
+              if (tail.length > 0){
+                console.log("tail uscita ", tail.length)
+                booleano = false
+                break
+              }
+            }
+
 
 
           }

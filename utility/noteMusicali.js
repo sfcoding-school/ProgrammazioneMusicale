@@ -11,21 +11,6 @@
   // }
 
 
-  $(window).load(function(){
-  $("#idTextAreaDurata").keyup(function() { 
-        var $this = $(this);
-        var temp = (this.value)
-        temp = parseInt(temp)
-        if (!isNaN(temp)){
-          window.globDurata = parseFloat(temp);
-          console.log("ho cambiato t")
-        }else {
-          window.glob = false
-        }
-
-  });
-});
-
 
 
   function simHertzRunTime(noteList) {

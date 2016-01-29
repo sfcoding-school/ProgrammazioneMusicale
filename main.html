@@ -4,44 +4,54 @@
     <title>Programmazione Musicale</title>
     <script src="librerie/jquery-1.11.3.min.js"></script>
     <script src="librerie/riffwave.js"></script>
+    <style>
+      .inner1{
+        float:left;
+      }
+      .inner2{
+        float:left;
+        clear: left;
+      }
+    </style>
   </head>
   <body>
     <script type="text/javascript" >
       window.glob = false;
       window.glob2 = [];
       window.glob3 = [];
-      window.globDurata = 1;
     </script>
     <script src="utility/noteMusicali.js"></script>
     <script src="utility/suona.js"></script>
     <script src="utility/debuggerNew.js"></script>
     <script src="utility/debuggerRuntime.js"></script>
     <h2>Some tests</h2>
+    <div class="inner1">
+      <textarea id="theId" style="resize: none; width: 600px; height: 200px;" rows="4" cols="50"></textarea>
+      <input type="button" value="suona" onclick="suona()" />
+      <input type="button" value="do" onclick="document.getElementById('theId').value += ' ' + this.value;" />
+    </div>
 
-    <textarea id="theId" style="resize: none; width: 600px; height: 200px;" rows="4" cols="50"></textarea>
-    <input type="button" value="suona" onclick="suona()" />
-    <input type="button" value="do" onclick="document.getElementById('theId').value += ' ' + this.value;" /> 
-   
-    
-
-    <input type="image" src="img/mario.gif"  width="48" height="48"
-    onmousedown="suona(mario);">
-
-    <textarea id="theId2" style="resize: none; width: 600px; height: 200px;" rows="4" cols="50"></textarea>
-    <!--<textarea id="idTextAreaDurata" style="resize: none; width: 50px; height: 30px;" rows="4" cols="50"></textarea> -->
-    <input type="number" name="quantity" id="idTextAreaDurata" min="1" max="5">
-    <input type="button" value="suona2" onclick="suonaRunTime()" />
-    <input type="button" value="do" onclick="document.getElementById('theId2').value += ' ' + 'suona(261.63 , 1/4)'" />
-    <input type="button" value="re" onclick="document.getElementById('theId2').value += ' ' + 'suona(293.66 , 1/4)'" />
-    <input type="button" value="mi" onclick="document.getElementById('theId2').value += ' ' + 'suona(329.63 , 1/4)'" />
-    <input type="button" value="fa" onclick="document.getElementById('theId2').value += ' ' + 'suona(349.23 , 1/4)'" />
-    <input type="button" value="sol" onclick="document.getElementById('theId2').value += ' ' + 'suona(392.00 , 1/4)'" />
-    <input type="button" value="la" onclick="document.getElementById('theId2').value += ' ' + 'suona(440.00 , 1/4)'" />
-    <input type="button" value="si" onclick="document.getElementById('theId2').value += ' ' + 'suona(493.88 , 1/4)'" />
-
-
-
-    <p id="ok"></p>
-    <p id="errore"></p>
+    <div class="inner2">
+      <div class="inner1">
+        <textarea id="theId2" style="resize: none; width: 600px; height: 200px;" rows="4" cols="50"></textarea>
+      </div>
+      <div class="inner2">
+        <input type="number" value="1" id="idTextAreaDurata" min="1" max="5">
+        <input type="button" value="suona2" onclick="suonaRunTime()" />
+        <input type="button" value="do" onclick="document.getElementById('theId2').value += ' ' + 'suona(261.63 , 1/4)'" />
+        <input type="button" value="re" onclick="document.getElementById('theId2').value += ' ' + 'suona(293.66 , 1/4)'" />
+        <input type="button" value="mi" onclick="document.getElementById('theId2').value += ' ' + 'suona(329.63 , 1/4)'" />
+        <input type="button" value="fa" onclick="document.getElementById('theId2').value += ' ' + 'suona(349.23 , 1/4)'" />
+        <input type="button" value="sol" onclick="document.getElementById('theId2').value += ' ' + 'suona(392.00 , 1/4)'" />
+        <input type="button" value="la" onclick="document.getElementById('theId2').value += ' ' + 'suona(440.00 , 1/4)'" />
+        <input type="button" value="si" onclick="document.getElementById('theId2').value += ' ' + 'suona(493.88 , 1/4)'" />
+      </div>
+      <div class="inner2">
+        <p id="ok"></p>
+        <p id="errore"></p>
+      </div>
+    </div>
+    <!-- <input type="image" src="img/mario.gif"  width="48" height="48"
+    onmousedown="suona(mario);"> -->
   </body>
 </html>

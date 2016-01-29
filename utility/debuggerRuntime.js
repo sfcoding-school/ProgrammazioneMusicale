@@ -82,7 +82,13 @@ $(window).load(function(){
                 break
               }
             }
-            var ripeti = tail.substring(startRipeti+1,endRipeti)
+
+            if (tail[startRipeti+1] != "(" || tail[endRipeti] != ")"){
+              booleano = false
+              break
+            }
+
+            var ripeti = tail.substring(startRipeti+2,endRipeti)
             var temp = ripeti.split(",")
             var frequenza
             var durata
@@ -128,11 +134,12 @@ $(window).load(function(){
 
             }   
 
-            tail = tail.substring(endRipeti+1,tail.length)
+            tail = tail.substring(0,startRipeti -1) + tail.substring(endRipeti+1,tail.length)
             suona.push([frequenza,durata])
 
-            if (tail.indexOf("#") === -1){
+            if (tail.indexOf("#") == -1){
               tail = tail.replace(/[\s]/g, '' ) 
+              console.log("tail uscita ", tail)
               if (tail.length > 0){
                 console.log("tail uscita ", tail.length)
                 booleano = false

@@ -125,7 +125,7 @@ $(window).load(function(){
                 break
               }
 
-              if (isNaN(numeratore) || isNaN(denominatore)){
+              if (isNaN(numeratore) || isNaN(denominatore) || denominatore==0){
                 booleano = false
                 break
               } else {
@@ -147,11 +147,15 @@ $(window).load(function(){
               }
             }
 
+          }
 
+          if (suona.length == 0) booleano = false
+          else  {  
+          console.log("SUONA ", suona.length)
+          window.glob3 = suona
 
           }
-          console.log("SUONA ", suona)
-          window.glob3 = suona;
+
 
             
           if (booleano) {

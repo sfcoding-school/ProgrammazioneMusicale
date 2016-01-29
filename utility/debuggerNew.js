@@ -7,9 +7,9 @@ function matchExact(r, str) {
 }
 
 $(window).load(function(){
-  $("#theId").keyup(function() { 
+  $("#theId").keyup(function() {
       var $this = $(this);
-      
+
 
           var booleano = true
           var head = ""
@@ -129,7 +129,7 @@ $(window).load(function(){
               $("#ok").html("");
               window.glob = true;
           }
-        
+
 
 
   });

@@ -11,32 +11,49 @@
   // }
 
 
+//   $(window).load(function(){
+//   $("#idTextAreaDurata").keyup(function() {
+//         var $this = $(this);
+//         var temp = (this.value)
+//         temp = parseInt(temp)
+//         if (!isNaN(temp)){
+//           window.globDurata = parseFloat(temp);
+//           console.log("ho cambiato t")
+//         }else {
+//           window.glob = false
+//         }
+//
+//   });
+// });
+
+
 
 
   function simHertzRunTime(noteList) {
 
-    var tempoGlobale = window.globDurata
-    console.log(noteList)
+    var tempoGlobale = document.getElementById('idTextAreaDurata').value;
+    console.log("tempoGlobale " + tempoGlobale);
+    console.log(noteList);
     var audio = new Audio();
     var wave = new RIFFWAVE();
     wave.header.sampleRate = 44100;
 
-      // Set sample rate to 44KHz  In digital audio, 44,100 Hz 
-      //(alternately represented as 44.1 kHz) is a common sampling frequency. Analog audio is recorded by 
+      // Set sample rate to 44KHz  In digital audio, 44,100 Hz
+      //(alternately represented as 44.1 kHz) is a common sampling frequency. Analog audio is recorded by
       //sampling it 44,100 times per second, and then these samples are used to reconstruct the audio signal when playing it back.
 
     wave.header.numChannels = 1;
     var data = [];
     for (var j = 0; j < noteList.length; j++) {
-      hz = noteList[j][0]
-      s = noteList[j][1] * tempoGlobale
-      s_prec = 0
-      if (j!=0) s_prec = noteList[j-1][1]*tempoGlobale
+      hz = noteList[j][0];
+      s = noteList[j][1] * tempoGlobale;
+      s_prec = 0;
+      if (j !== 0) s_prec = noteList[j-1][1]*tempoGlobale;
       var i = 0;
       while (i< wave.header.sampleRate * s) { // la grandezza determina la durata .. la formula giusta dovrebbe essere wave.header.sampleRate * s
         var t = i/wave.header.sampleRate;
         data[(wave.header.sampleRate * s_prec * j) + i] = 128+Math.round(127*Math.sin(hz*t*2*Math.PI)); // 127 è l'ampiezza del segnale
-        i ++
+        i++;
       }
     }
 
@@ -50,8 +67,8 @@
       s = typeof s !== 'undefined' ? s : 0.2; //default 0.2
       var audio = new Audio();
       var wave = new RIFFWAVE();
-      wave.header.sampleRate = 44100; // Set sample rate to 44KHz  In digital audio, 44,100 Hz 
-      //(alternately represented as 44.1 kHz) is a common sampling frequency. Analog audio is recorded by 
+      wave.header.sampleRate = 44100; // Set sample rate to 44KHz  In digital audio, 44,100 Hz
+      //(alternately represented as 44.1 kHz) is a common sampling frequency. Analog audio is recorded by
       //sampling it 44,100 times per second, and then these samples are used to reconstruct the audio signal when playing it back.
       wave.header.numChannels = 1;
       var data = [];

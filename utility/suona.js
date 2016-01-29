@@ -10,7 +10,7 @@ function riproduciRunTime(data){
     };
   }catch(err){
     stoSuonando = false;
-    console.log("Errore in rirpodiciRunTime")
+    console.log("Errore in rirpodiciRunTime");
   }
 }
 

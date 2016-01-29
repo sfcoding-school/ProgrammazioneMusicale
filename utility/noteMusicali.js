@@ -11,8 +11,26 @@
   // }
 
 
+  $(window).load(function(){
+  $("#idTextAreaDurata").keyup(function() { 
+        var $this = $(this);
+        var temp = (this.value)
+        temp = parseInt(temp)
+        if (!isNaN(temp)){
+          window.globDurata = parseFloat(temp);
+          console.log("ho cambiato t")
+        }else {
+          window.glob = false
+        }
+
+  });
+});
+
+
+
   function simHertzRunTime(noteList) {
 
+    var tempoGlobale = window.globDurata
     console.log(noteList)
     var audio = new Audio();
     var wave = new RIFFWAVE();
@@ -26,7 +44,7 @@
     var data = [];
     for (var j = 0; j < noteList.length; j++) {
       hz = noteList[j][0]
-      s = noteList[j][1]
+      s = noteList[j][1] * tempoGlobale
       s_prec = 0
       if (j!=0) s_prec = noteList[j-1][1]
       var i = 0;

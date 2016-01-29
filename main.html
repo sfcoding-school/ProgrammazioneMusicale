@@ -10,6 +10,7 @@
       window.glob = false;
       window.glob2 = [];
       window.glob3 = [];
+      window.globDurata = 1;
     </script>
     <script src="utility/noteMusicali.js"></script>
     <script src="utility/suona.js"></script>
@@ -27,6 +28,7 @@
     onmousedown="suona(mario);">
 
     <textarea id="theId2" style="resize: none; width: 600px; height: 200px;" rows="4" cols="50"></textarea>
+    <textarea id="idTextAreaDurata" style="resize: none; width: 50px; height: 30px;" rows="4" cols="50"></textarea>
     <input type="button" value="suona2" onclick="suonaRunTime()" />
     <input type="button" value="do" onclick="document.getElementById('theId2').value += ' ' + 'suona(261.63 , 0.2)'" />
     <input type="button" value="re" onclick="document.getElementById('theId2').value += ' ' + 'suona(293.66 , 0.2)'" />

@@ -101,15 +101,34 @@ $(window).load(function(){
                 break
               }
 
-              temp[1] = temp[1].replace( /[^\d.]/g, '' )
-              durata = parseFloat(temp[1])
+/*              temp[1] = temp[1].replace( /[^\d.]/g, '' )
+              durata = parseFloat(temp[1])*/
               //console.log("tailFOR ", iterator)
-              if (isNaN(durata)){
+
+              var secondoSplit = temp[1].split("/")
+              var numeratore = parseInt(secondoSplit[0])
+              if (secondoSplit.length < 2){
+                booleano = false
+                break
+              }
+              secondoSplit[1] = secondoSplit[1].replace( /[\s]/, '@' )
+              //console.log("controllo denominatore ", secondoSplit[1])
+              secondoSplit[1] = secondoSplit[1].replace(/[\s]/g, '' )
+              //console.log("controllo denominatore ", secondoSplit[1])
+              terzoSplit = secondoSplit[1].split("@")
+              console.log("controllo denominatore ", terzoSplit)
+              var denominatore = parseInt(terzoSplit[0])
+              if (terzoSplit.length > 1 && terzoSplit[1] !== "t" && terzoSplit[1] !== ""){
                 booleano = false
                 break
               }
 
-
+              if (isNaN(numeratore) || isNaN(denominatore)){
+                booleano = false
+                break
+              } else {
+                durata = numeratore/denominatore
+              }
 
             }   
 

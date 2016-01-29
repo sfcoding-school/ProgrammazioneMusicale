@@ -46,7 +46,7 @@
       hz = noteList[j][0]
       s = noteList[j][1] * tempoGlobale
       s_prec = 0
-      if (j!=0) s_prec = noteList[j-1][1]
+      if (j!=0) s_prec = noteList[j-1][1]*tempoGlobale
       var i = 0;
       while (i< wave.header.sampleRate * s) { // la grandezza determina la durata .. la formula giusta dovrebbe essere wave.header.sampleRate * s
         var t = i/wave.header.sampleRate;

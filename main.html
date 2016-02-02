@@ -20,6 +20,19 @@
       window.glob2 = [];
       window.glob3 = [];
     </script>
+
+    <script type="text/javascript">
+      window.canvas=null;
+      window.context=null;
+
+
+      window.onload = function() {
+      	canvas=document.getElementById("drawing");
+      	window.context=canvas.getContext("2d");
+
+      }
+</script>
+
     <script src="utility/noteMusicali.js"></script>
     <script src="utility/suona.js"></script>
     <script src="utility/debuggerNew.js"></script>
@@ -47,6 +60,7 @@
         <input type="button" value="si" onclick="document.getElementById('theId2').value += ' ' + 'suona(493.88 , 1/4)'" />
       </div>
       <div class="inner2">
+        <canvas id="drawing" width="500" height="130" style="" > </canvas>
         <p id="ok"></p>
         <p id="errore"></p>
       </div>

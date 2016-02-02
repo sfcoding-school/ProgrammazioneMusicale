@@ -1,13 +1,59 @@
 // !!! al momento mancano alcuni casi da gestire e si riesce a mettere un ciclo dopo la virgola di un ciclo
 //  ciò è ovviamente sbagliato e va gestito sennò la funziona suona si incazza
 
+
+/*
+ do · re · mi · fa · sol · la · si
+ C     D    E    F     G    A     B
+ 261.63 | 293.66 | 329.63 | 349.23 | 392.0 | 440 | 493.88
+
+ DO RE MI DO DO RE MI DO MI FA SOL (pausa)
+MI FA SOL (pausa)
+SOL LA SOL FA MI DO SOL LA SOL FA MI DO DO SOL DO (pausa)
+DO SOL DO
+
+
+*/
+
+var note = {
+  "261.63": 0,
+  "293.66": 10,
+  "329.63": 20,
+  "349.23": 30,
+  "392.0": 40,
+  "440.0": 50,
+  "493.88": 60
+};
+
+function tutorial(arraySuona){
+
+    var fraMartino = [261.63, 293.66, 329.63, 261.63, 261.63, 293.66, 329.63, 261.63, 329.63, 349.23, 392.0, 329.63, 349.23, 392.0, 392.0, 440.0, 392.0, 349.23, 329.63, 261.63, 392.0, 440.0, 392.0, 349.23, 329.63, 261.63, 261.63, 392.0, 261.63, 261.63, 392.0, 261.63];
+
+    window.context.clearRect(0, 0, window.canvas.width, window.canvas.height); // pulisce la canvas
+    for(var i=20; i<120; i=i+20){
+      window.context.moveTo(0, i);
+      window.context.lineTo(window.canvas.width, i);
+    }
+
+    for (i = 0; i < fraMartino.length; i++) {
+      var k = note[fraMartino[i].toString()];
+      window.context.rect(30*i, 110-k, 15, 15);
+      window.context.fillStyle = 'black';
+      window.context.fill();
+    }
+
+    window.context.stroke();
+
+}
+
+
 function matchExact(r, str) {
    var match = str.match(r);
    return match !== null && str == match[0];
 }
 
 $(window).load(function(){
-  $("#theId2").keyup(function() { 
+  $("#theId2").keyup(function() {
       var $this = $(this);
       //if (this.value !== $this.data("oldValue")) {
           var booleano = true
@@ -132,13 +178,13 @@ $(window).load(function(){
                 durata = numeratore/denominatore
               }
 
-            }   
+            }
 
             tail = tail.substring(0,startRipeti -1) + tail.substring(endRipeti+1,tail.length)
             suona.push([frequenza,durata])
 
             if (tail.indexOf("#") == -1){
-              tail = tail.replace(/[\s]/g, '' ) 
+              tail = tail.replace(/[\s]/g, '' )
               console.log("tail uscita ", tail)
               if (tail.length > 0){
                 console.log("tail uscita ", tail.length)
@@ -150,14 +196,14 @@ $(window).load(function(){
           }
 
           if (suona.length == 0) booleano = false
-          else  {  
-          console.log("SUONA ", suona.length)
-          window.glob3 = suona
-
+          else  {
+            console.log("SUONA ", suona.length)
+            window.glob3 = suona
+            tutorial(suona);
           }
 
 
-            
+
           if (booleano) {
               $("#errore").html("");
               $("#ok").html("OK!");
@@ -167,7 +213,7 @@ $(window).load(function(){
               $("#ok").html("");
               window.glob = true;
           }
-        
+
 
 
   });

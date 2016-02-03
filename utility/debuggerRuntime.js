@@ -20,29 +20,47 @@ var note = {
   "293.66": 10,
   "329.63": 20,
   "349.23": 30,
-  "392.0": 40,
-  "440.0": 50,
-  "493.88": 60
+  "392": 40,
+  "440": 50,
+  "493.88": 60,
+  "523.25": 70
+};
+
+var periodo = {
+  "1": "Semibreve",
+  "2": "Minima",
+  "4": "Semiminima"
 };
 
 function tutorial(arraySuona){
 
-    var fraMartino = [261.63, 293.66, 329.63, 261.63, 261.63, 293.66, 329.63, 261.63, 329.63, 349.23, 392.0, 329.63, 349.23, 392.0, 392.0, 440.0, 392.0, 349.23, 329.63, 261.63, 392.0, 440.0, 392.0, 349.23, 329.63, 261.63, 261.63, 392.0, 261.63, 261.63, 392.0, 261.63];
-
+    var fraMartino = [[349.23, 4], [392.0, 4], [440.0, 4], [349.23, 4], [349.23, 4], [392.0, 4], [440.0, 4], [349.23, 4], [440.0, 4], [493.88, 4], [523.25, 2], [440.0, 4], [493.88, 4], [523.25, 2] ];
     window.context.clearRect(0, 0, window.canvas.width, window.canvas.height); // pulisce la canvas
+
     for(var i=20; i<120; i=i+20){
       window.context.moveTo(0, i);
       window.context.lineTo(window.canvas.width, i);
     }
 
     for (i = 0; i < fraMartino.length; i++) {
-      var k = note[fraMartino[i].toString()];
-      window.context.rect(30*i, 110-k, 15, 15);
-      window.context.fillStyle = 'black';
-      window.context.fill();
+      var img = document.getElementById(periodo[fraMartino[i][1].toString()]);
+      var k = note[fraMartino[i][0].toString()];
+      if (fraMartino[i][1] == 1) {
+        k = note[fraMartino[i][0].toString()] - 36;
+      }
+      window.context.drawImage(img, 30*i, 76-k, img.width, img.height);
     }
 
+    // for (i = 0; i < fraMartino.length; i++) {
+    //   var k = note[fraMartino[i][0].toString()];
+    //   window.context.rect(30*i, 110-k, 15, 15);
+    //   window.context.fillStyle = 'black';
+    //   window.context.fill();
+    // }
+
     window.context.stroke();
+
+
 
 }
 

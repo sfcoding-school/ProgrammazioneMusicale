@@ -4,7 +4,7 @@
     <title>Programmazione Musicale</title>
     <script src="librerie/jquery-1.11.3.min.js"></script>
     <script src="librerie/riffwave.js"></script>
-    <style>
+    <style type="text/css">
       .inner1{
         float:left;
       }
@@ -12,7 +12,12 @@
         float:left;
         clear: left;
       }
-    </style>
+    .tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;border:none;}
+    .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
+    .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
+    .tg .tg-cxkv{background-color:#ffffff}
+    .tg .tg-3we0{background-color:#ffffff;vertical-align:top}
+  </style>
   </head>
   <body>
     <script type="text/javascript" >
@@ -63,9 +68,77 @@
         <canvas id="drawing" width="500" height="130" style="" > </canvas>
         <p id="ok"></p>
         <p id="errore"></p>
-      </div>
-    </div>
+
+
+<table class="tg">
+  <tr>
+    <th class="tg-cxkv"></th>
+    <th class="tg-cxkv"></th>
+  </tr>
+  <tr>
+    <td class="tg-cxkv">do</td>
+    <td class="tg-cxkv">261.63</td>
+  </tr>
+  <tr>
+    <td class="tg-cxkv">re</td>
+    <td class="tg-cxkv">293.66</td>
+  </tr>
+  <tr>
+    <td class="tg-3we0">mi</td>
+    <td class="tg-3we0">329.63</td>
+  </tr>
+  <tr>
+    <td class="tg-3we0">fa</td>
+    <td class="tg-3we0">349.23</td>
+  </tr>
+  <tr>
+    <td class="tg-3we0">sol</td>
+    <td class="tg-3we0">392.0</td>
+  </tr>
+  <tr>
+    <td class="tg-3we0">la</td>
+    <td class="tg-3we0">440.0</td>
+  </tr>
+  <tr>
+    <td class="tg-3we0">si</td>
+    <td class="tg-3we0">493.88</td>
+  </tr>
+</table>
     <!-- <input type="image" src="img/mario.gif"  width="48" height="48"
     onmousedown="suona(mario);"> -->
-  </body>
+  <table>
+    <tr>
+      <th>Figura</th>
+      <th>Semibreve</th>
+      <th>Minima</th>
+      <th>Semiminima</th>
+      <th>Croma</th>
+      <th>Semicroma</th>
+      <th>Biscroma</th>
+      <th>Semibiscroma</th>
+    </tr>
+  <tr>
+    <th>Figura</th>
+    <th><img id="Semibreve" src="img/Semibreve.gif" ></th>
+    <th><img id="Minima" src="img/Minima.gif" ></th>
+    <th><img id="Semiminima" src="img/Semiminima.gif" ></th>
+    <th><img id="Croma" src="img/Croma.gif" ></th>
+    <th><img id="Semicroma" src="img/Semicroma.gif" ></th>
+    <th><img id="Biscroma" src="img/Biscroma.gif" ></th>
+    <th><img width="15" height="50" id="Semibiscroma" src="img/Semibiscroma.gif" ></th>
+  </tr>
+  <tr>
+    <td>VALORE</td>
+    <td>intero</td>
+    <td>metà<br>del valore intero</td>
+    <td>1/4del valore intero (oppure la metà della figura precedente)</td>
+    <td>1/8del valore intero (oppure la metà della figura precedente)</td>
+    <td>1/16del valore intero (oppure la metà della figura precedente)</td>
+    <td>1/32del valore intero (oppure la metà della figura precedente)</td>
+    <td>1/64del valore intero (oppure la metà della figura precedente)</td>
+  </tr>
+</table>
+</div>
+</div>
+</body>
 </html>

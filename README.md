@@ -8,3 +8,5 @@ Scala ben temperata (di Bach)
 https://en.wikipedia.org/wiki/Equal_temperament
 
 http://www.phy.mtu.edu/~suits/notefreqs.html
+
+**[ProgrammazioneMusicale](http://sfcoding-school.github.io/ProgrammazioneMusicale/)**

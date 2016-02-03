@@ -364,7 +364,7 @@ fieldset {
 
 /*
  * 1. Corrects color not being inherited in IE6/7/8/9
- * 2. Corrects text not wrapping in FF3 
+ * 2. Corrects text not wrapping in FF3
  * 3. Corrects alignment displayed oddly in IE6/7
  */
 legend {
@@ -565,7 +565,7 @@ strong {
 }
 
 .wrapper {
-  width: 650px;
+  width: 80%;
   margin: 0 auto;
   position: relative;
 }
@@ -792,7 +792,7 @@ header p {
 }
 
 section {
-  width: 590px;
+  width: 80%;
   padding: 30px 30px 50px 30px;
   margin: 20px 0;
   margin-top: 190px;
@@ -852,17 +852,21 @@ nav ul a:hover {
 
 footer {
   width: 180px;
-  position: fixed;
-  left: 50%;
-  margin-left: -530px;
-  bottom: 20px;
+  /*position: fixed;*/
+  /*left: 50%;*/
+  /*margin-left: -530px;*/
+  /*bottom: 20px;*/
   text-align: right;
   line-height: 16px;
+
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 @media print, screen and (max-width: 1060px) {
   div.wrapper {
-    width: auto;
+    width: 80%;
     margin: 0;
   }
 

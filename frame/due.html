@@ -1,0 +1,58 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <script src="../javascripts/jquery-1.11.3.min.js"></script>
+        <script src="../javascripts/DebuggerDue.js"></script>
+        <script type="text/javascript">
+
+        window.onload = function() {
+          	window.parent.canvas = document.getElementById("drawing");
+          	window.parent.context = window.parent.canvas.getContext("2d");
+
+            tutorial([]);
+          }
+
+
+        </script>
+
+        <textarea id="textareaDUE" style="resize: none; width: 600px; height: 200px;" rows="4" cols="50"></textarea>
+        <input type="button" value="suona" onclick="window.parent.suonaRunTime()" />
+        <canvas id="drawing" width="500" height="130" style="" > </canvas>
+        <input type="number" value="1" id="idTextAreaDurata" min="1" max="5">
+    </body>
+
+    <table>
+    <tr>
+      <th>Figura</th>
+      <th>Semibreve</th>
+      <th>Minima</th>
+      <th>Semiminima</th>
+      <th>Croma</th>
+      <th>Semicroma</th>
+      <th>Biscroma</th>
+      <th>Semibiscroma</th>
+    </tr>
+  <tr>
+    <th>Figura</th>
+    <th><img id="Semibreve" src="../images/note/Semibreve.gif" ></th>
+    <th><img id="Minima" src="../images/note/Minima.gif" ></th>
+    <th><img id="Semiminima" src="../images/note/Semiminima.gif" ></th>
+    <th><img id="Croma" src="../images/note/Croma.gif" ></th>
+    <th><img id="Semicroma" src="../images/note/Semicroma.gif" ></th>
+    <th><img id="Biscroma" src="../images/note/Biscroma.gif" ></th>
+    <th><img width="15" height="50" id="Semibiscroma" src="../images/note/Semibiscroma.gif" ></th>
+  </tr>
+  <tr>
+    <td>VALORE</td>
+    <td>intero</td>
+    <td>metà<br>del valore intero</td>
+    <td>1/4del valore intero (oppure la metà della figura precedente)</td>
+    <td>1/8del valore intero (oppure la metà della figura precedente)</td>
+    <td>1/16del valore intero (oppure la metà della figura precedente)</td>
+    <td>1/32del valore intero (oppure la metà della figura precedente)</td>
+    <td>1/64del valore intero (oppure la metà della figura precedente)</td>
+  </tr>
+</table>
+</html>

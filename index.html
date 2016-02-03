@@ -6,24 +6,46 @@
     <title>Programmazione Musicale</title>
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/github-dark.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> -->
     <script src="javascripts/main.js"></script>
     <script src="javascripts/jquery-1.11.3.min.js"></script>
     <script src="javascripts/riffwave.js"></script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <script src="javascripts/noteMusicali.js"></script>
+    <script src="javascripts/suona.js"></script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
   </head>
   <body>
-       <script type="text/javascript" >
+    <script type="text/javascript" >
       window.glob = false;
       window.glob2 = [];
+      window.glob3 = [];
+      window.canvas = null;
+      window.context = null;
+
+      function resizeIframe(obj) {
+        obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+      }
+
+      function avanti(){
+        if ((document.getElementById('content1').src).indexOf("main") > -1) {
+          document.getElementById('content1').src = "frame/uno.html";
+        } else if ((document.getElementById('content1').src).indexOf("uno") > -1) {
+          document.getElementById('content1').src = "frame/due.html";
+        }
+
+      }
+
+      function indietro(){
+        if ((document.getElementById('content1').src).indexOf("uno") > -1) {
+          document.getElementById('content1').src = "frame/main.html";
+        } else if ((document.getElementById('content1').src).indexOf("due") > -1) {
+          document.getElementById('content1').src = "frame/uno.html";
+        }
+
+      }
     </script>
-    <script src="javascripts/noteMusicali.js"></script>
-    <script src="javascripts/corpo.js"></script>
-    <script src="javascripts/debugger.js"></script>
       <header>
         <h1>Programmazione Musicale</h1>
         <p>[Modelli Geometrici]</p>
@@ -31,7 +53,6 @@
 
       <div id="banner">
         <span id="logo"></span>
-
         <a href="https://github.com/sfcoding-school/ProgrammazioneMusicale" class="button fork"><strong>View On GitHub</strong></a>
         <div class="downloads">
           <span>Downloads:</span>
@@ -47,26 +68,13 @@
         <ul></ul>
       </nav>
       <section>
-        <h3>
-<a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span class="octicon octicon-link"></span></a>titolo</h3>
-
-<textarea id="theId" style="resize: none; width: 600px; height: 300px;" rows="4" cols="50">
-</textarea>
-<input type="button" value="TestTextArea" id="add" onclick="suona()" />
-<input type="button" value="do" onclick="document.getElementById('theId').value += ' ' + this.value; debuggerF();" />
-
-<p id="ok"></p>
-<p id="errore"></p>
-
+        <iframe frameborder="0" scrolling="no" onload="resizeIframe(this)" id="content1" src="frame/main.html" width="900" height="auto"></iframe>
+        <input type="button" value="indietro" onclick="indietro()" /> <input type="button" value="avanti" onclick="avanti()" />
       </section>
       <footer>
-       <!--  <p><input type="image" src="images/mario.gif"  width="48" height="48" onmousedown="test([E_5, E_5, E_5, C_5, E_5, G_5, pausa, G_4, pausa, C_5, pausa, G_4, pausa,  E_4, pausa, A_4, B_4, A_s_4, A_4, pausa, G_4, E_5, G_5, A_5, F_5, G_5, E_5, C_5, D_5, B_4, C_5, pausa, G_4, pausa, E_4, A_4, B_4, A_s_4, A_4, pausa, G_4, E_5, G_5, A_5, F_5, G_5, E_5, C_5, D_5, B_4, pausa, G_5, Fa_s_5, Fa_5, D_5, E_5, A_s_4, A_4, C_5, pausa, A_4, C_5, D_5,
-G_5, Fa_s_5, Fa_5, D_5, E_5, C_6, C_6, C_6].reverse());"></p> -->
         <p>Project maintained by <a href="https://github.com/sfcoding-school">sfcoding-school</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
+        <!-- <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a> modified by <a href="https://github.com/sfcoding-school">sfcoding-school</a></small></p> -->
       </footer>
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
   </body>
 </html>

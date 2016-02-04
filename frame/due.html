@@ -21,6 +21,13 @@
         <input type="button" value="suona" onclick="window.parent.suonaRunTime()" />
         <canvas id="drawing" width="500" height="130" style="" > </canvas>
         <input type="number" value="1" id="idTextAreaDurata" min="1" max="5">
+        <input type="button" value="do" onclick="document.getElementById('textareaDUE').value += ' suona(261.63 , 1/4)'; Debugger();" />
+        <input type="button" value="re" onclick="document.getElementById('textareaDUE').value += ' suona(293.66 , 1/4)'; Debugger();" />
+        <input type="button" value="mi" onclick="document.getElementById('textareaDUE').value += ' suona(329.63 , 1/4)'; Debugger();" />
+        <input type="button" value="fa" onclick="document.getElementById('textareaDUE').value += ' suona(349.23 , 1/4)'; Debugger();" />
+        <input type="button" value="sol" onclick="document.getElementById('textareaDUE').value += ' suona(392.00 , 1/4)'; Debugger();" />
+        <input type="button" value="la" onclick="document.getElementById('textareaDUE').value += ' suona(440.00 , 1/4)'; Debugger();" />
+        <input type="button" value="si" onclick="document.getElementById('textareaDUE').value += ' suona(493.88 , 1/4)'; Debugger();" />
     </body>
 
     <table>
@@ -36,13 +43,41 @@
     </tr>
   <tr>
     <th>Figura</th>
-    <th><img id="Semibreve" src="../images/note/Semibreve.gif" ></th>
-    <th><img id="Minima" src="../images/note/Minima.gif" ></th>
-    <th><img id="Semiminima" src="../images/note/Semiminima.gif" ></th>
-    <th><img id="Croma" src="../images/note/Croma.gif" ></th>
-    <th><img id="Semicroma" src="../images/note/Semicroma.gif" ></th>
-    <th><img id="Biscroma" src="../images/note/Biscroma.gif" ></th>
-    <th><img width="15" height="50" id="Semibiscroma" src="../images/note/Semibiscroma.gif" ></th>
+    <th>
+      <img id="Semibreve" src="../images/note/Semibreve.gif">
+      <img id="SemibreveT" style="display: none;" src="../images/note/SemibreveT.gif">
+      <img id="SemibreveF" style="display: none;" src="../images/note/SemibreveF.gif">
+    </th>
+    <th>
+      <img id="Minima" src="../images/note/Minima.gif">
+      <img id="MinimaT" style="display: none;" src="../images/note/MinimaT.gif">
+      <img id="MinimaF" style="display: none;" src="../images/note/MinimaF.gif">
+    </th>
+    <th>
+      <img id="Semiminima" src="../images/note/Semiminima.gif">
+      <img id="SemiminimaT" style="display: none;" src="../images/note/SemiminimaT.gif">
+      <img id="SemiminimaF" style="display: none;" src="../images/note/SemiminimaF.gif">
+    </th>
+    <th>
+      <img id="Croma" src="../images/note/Croma.gif">
+      <img id="CromaT" style="display: none;" src="../images/note/CromaT.gif">
+      <img id="CromaF" style="display: none;" src="../images/note/CromaF.gif">
+    </th>
+    <th>
+      <img id="Semicroma" src="../images/note/Semicroma.gif">
+      <img id="SemicromaT" style="display: none;" src="../images/note/SemicromaT.gif">
+      <img id="SemicromaF" style="display: none;" src="../images/note/SemicromaF.gif">
+    </th>
+    <th>
+      <img id="Biscroma" src="../images/note/Biscroma.gif">
+      <img id="BiscromaT" style="display: none;"  src="../images/note/BiscromaT.gif">
+      <img id="BiscromaF" style="display: none;"  src="../images/note/BiscromaF.gif">
+    </th>
+    <th>
+      <img width="15" height="50" id="Semibiscroma" src="../images/note/Semibiscroma.gif">
+      <img width="15" height="50" style="display: none;" id="SemibiscromaT" src="../images/note/SemibiscromaT.gif">
+      <img width="15" height="50" style="display: none;" id="SemibiscromaF" src="../images/note/SemibiscromaF.gif">
+    </th>
   </tr>
   <tr>
     <td>VALORE</td>

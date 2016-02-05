@@ -18,38 +18,51 @@ var periodo = {
 var fraMartinoNote = ["fa", "sol", "la", "fa", "fa", "sol", "la", "fa", "la", "si", "do5", "la", "si", "do5"];
 var fraMartino = [[349.23, 0.25], [392.0, 0.25], [440.0, 0.25], [349.23, 0.25], [349.23, 0.25], [392.0, 0.25], [440.0, 0.25], [349.23, 0.25], [440.0, 0.25], [493.88, 0.25], [523.25, 0.5], [440.0, 0.25], [493.88, 0.25], [523.25, 0.5] ];
 
-function tutorial(arraySuona){
-    window.parent.context.clearRect(0, 0, window.parent.canvas.width, window.parent.canvas.height); // pulisce la canvas
+function tutorial(arraySuona, tutTRE){
 
-    // Creazione delle righe del pentagramma
-    for(var i=20; i<120; i=i+20){
-      window.parent.context.moveTo(0, i);
-      window.parent.context.lineTo(window.parent.canvas.width, i);
-    }
-    window.parent.context.stroke(); // disegna effettivamente le righe
+    if (arraySuona.length > fraMartino.length) {
+      $("#divError").text("Stai scrivendo note che non sono sul pentagramma");
+    } else {
 
-    for (i = 0; i < fraMartino.length; i++) {
-      // Carica e mette l'immagine della nota
-      var qualeDurata = fraMartino[i][1].toString();
-      var qualeNota = fraMartino[i][0].toString();
-      var qualeImmagine = periodo[qualeDurata];
-      if (i < arraySuona.length) {
-        if (qualeDurata == arraySuona[i][1] && qualeNota == arraySuona[i][0]) {
-          qualeImmagine = periodo[qualeDurata] + "T";
-        } else {
-          qualeImmagine = periodo[qualeDurata] + "F";
+      window.parent.context.clearRect(0, 0, window.parent.canvas.width, window.parent.canvas.height); // pulisce la canvas
+      $("#divError").text("");
+      // Creazione delle righe del pentagramma
+      for(var i=20; i<120; i=i+20){
+        window.parent.context.moveTo(0, i);
+        window.parent.context.lineTo(window.parent.canvas.width, i);
+      }
+      window.parent.context.stroke(); // disegna effettivamente le righe
+
+      for (i = 0; i < fraMartino.length; i++) {
+        // Carica e mette l'immagine della nota
+        var qualeDurata = fraMartino[i][1].toString();
+        var qualeNota = fraMartino[i][0].toString();
+        var qualeImmagine = periodo[qualeDurata];
+        if (i < arraySuona.length) {
+          if (qualeDurata == arraySuona[i][1] && qualeNota == arraySuona[i][0]) {
+            qualeImmagine = periodo[qualeDurata] + "T";
+          } else {
+            qualeImmagine = periodo[qualeDurata] + "F";
+            if (!tutTRE && arraySuona[i][0] != fraMartino[i][0]) {
+              $("#divError").text("Attento hai sbagliato frequenza, prova a scrivere " + fraMartino[i][0]);
+            } else if (!tutTRE && arraySuona[i][1] != qualeDurata) {
+              $("#divError").text("Hai sbagliato la durata, prova a scrivere 1/" + ((qualeDurata==0.25) ? 4 : 2));
+            }
+          }
+        }
+        var img = document.getElementById(qualeImmagine);
+        var k = note[fraMartino[i][0].toString()];
+        if (fraMartino[i][1] == 1) {
+          k = note[fraMartino[i][0].toString()] - 36;
+        }
+        window.parent.context.drawImage(img, 30*i, 76-k, img.width, img.height);
+
+        if (!tutTRE) {
+          // Scrive il nome della nota in fondo
+          window.parent.context.font = "10px Arial";
+          window.parent.context.fillText(fraMartinoNote[i], 30*i, 120);
         }
       }
-      var img = document.getElementById(qualeImmagine);
-      var k = note[fraMartino[i][0].toString()];
-      if (fraMartino[i][1] == 1) {
-        k = note[fraMartino[i][0].toString()] - 36;
-      }
-      window.parent.context.drawImage(img, 30*i, 76-k, img.width, img.height);
-
-      // Scrive il nome della nota in fondo
-      window.parent.context.font = "10px Arial";
-      window.parent.context.fillText(fraMartinoNote[i], 30*i, 120);
     }
 }
 
@@ -204,10 +217,13 @@ function Debugger(){
         else  {
           console.log("SUONA ", suona.length);
           window.parent.glob3 = suona;
-          tutorial(suona);
+          if (window.parent.tre) {
+              tutorial(suona, true);
+          } else {
+            tutorial(suona, false);
+          }
+
         }
-
-
 
         if (booleano) {
             $("#errore").html("");

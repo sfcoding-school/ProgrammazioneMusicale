@@ -14,7 +14,15 @@
     <script src="javascripts/suona.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
+    <style type="text/css">
+      .inner1{
+        float:left;
+      }
+      .inner2{
+        float:left;
+        clear: left;
+      }
+    </style>
   </head>
   <body>
     <script type="text/javascript" >
@@ -23,9 +31,10 @@
       window.glob3 = [];
       window.canvas = null;
       window.context = null;
+      window.tre = false;
 
       function resizeIframe(obj) {
-        obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+        obj.style.height = obj.contentWindow.document.body.scrollHeight + 50 + 'px';
       }
 
       function avanti(){
@@ -33,6 +42,8 @@
           document.getElementById('content1').src = "frame/uno.html";
         } else if ((document.getElementById('content1').src).indexOf("uno") > -1) {
           document.getElementById('content1').src = "frame/due.html";
+        } else if ((document.getElementById('content1').src).indexOf("due") > -1) {
+          document.getElementById('content1').src = "frame/tre.html";
         }
 
       }
@@ -42,6 +53,8 @@
           document.getElementById('content1').src = "frame/main.html";
         } else if ((document.getElementById('content1').src).indexOf("due") > -1) {
           document.getElementById('content1').src = "frame/uno.html";
+        } else if ((document.getElementById('content1').src).indexOf("tre") > -1) {
+          document.getElementById('content1').src = "frame/due.html";
         }
 
       }

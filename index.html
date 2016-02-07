@@ -31,7 +31,7 @@
       window.glob3 = [];
       window.canvas = null;
       window.context = null;
-      window.tre = false;
+      window.where = 0;
 
       function resizeIframe(obj) {
         obj.style.height = obj.contentWindow.document.body.scrollHeight + 50 + 'px';
@@ -40,10 +40,16 @@
       function avanti(){
         if ((document.getElementById('content1').src).indexOf("main") > -1) {
           document.getElementById('content1').src = "frame/uno.html";
+          window.where = 1;
         } else if ((document.getElementById('content1').src).indexOf("uno") > -1) {
           document.getElementById('content1').src = "frame/due.html";
+          window.where = 2;
         } else if ((document.getElementById('content1').src).indexOf("due") > -1) {
           document.getElementById('content1').src = "frame/tre.html";
+          window.where = 3;
+        }  else if ((document.getElementById('content1').src).indexOf("tre") > -1) {
+          document.getElementById('content1').src = "frame/quattro.html";
+          window.where = 4;
         }
 
       }
@@ -51,10 +57,16 @@
       function indietro(){
         if ((document.getElementById('content1').src).indexOf("uno") > -1) {
           document.getElementById('content1').src = "frame/main.html";
+          window.where = 0;
         } else if ((document.getElementById('content1').src).indexOf("due") > -1) {
           document.getElementById('content1').src = "frame/uno.html";
+          window.where = 1;
         } else if ((document.getElementById('content1').src).indexOf("tre") > -1) {
           document.getElementById('content1').src = "frame/due.html";
+          window.where = 2;
+        } else if ((document.getElementById('content1').src).indexOf("quattro") > -1) {
+          document.getElementById('content1').src = "frame/tre.html";
+          window.where = 3;
         }
 
       }

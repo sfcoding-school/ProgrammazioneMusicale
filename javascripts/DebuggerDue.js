@@ -15,7 +15,25 @@ var periodo = {
   "0.25": "Semiminima"
 };
 
-var fraMartinoNote = ["fa", "sol", "la", "fa", "fa", "sol", "la", "fa", "la", "si", "do5", "la", "si", "do5"];
+function scriviPentagramma(arraySuona){
+  window.parent.context.clearRect(0, 0, window.parent.canvas.width, window.parent.canvas.height); // pulisce la canvas
+  for(var i=20; i<120; i=i+20){
+    window.parent.context.moveTo(0, i);
+    window.parent.context.lineTo(window.parent.canvas.width, i);
+  }
+  window.parent.context.stroke(); // disegna effettivamente le righe
+
+  for (i = 0; i < arraySuona.length; i++) {
+    console.log("asada", periodo[arraySuona[i][1].toString()]);
+    var img = document.getElementById(periodo[arraySuona[i][1].toString()]);
+    var k = note[arraySuona[i][0].toString()];
+    if (arraySuona[i][1] == 1) {
+      k = note[arraySuona[i][0].toString()] - 36;
+    }
+    window.parent.context.drawImage(img, 30*i, 76-k, img.width, img.height);
+  }
+}
+
 var fraMartino = [[349.23, 0.25], [392.0, 0.25], [440.0, 0.25], [349.23, 0.25], [349.23, 0.25], [392.0, 0.25], [440.0, 0.25], [349.23, 0.25], [440.0, 0.25], [493.88, 0.25], [523.25, 0.5], [440.0, 0.25], [493.88, 0.25], [523.25, 0.5] ];
 
 function tutorial(arraySuona, tutTRE){
@@ -60,7 +78,7 @@ function tutorial(arraySuona, tutTRE){
         if (!tutTRE) {
           // Scrive il nome della nota in fondo
           window.parent.context.font = "10px Arial";
-          window.parent.context.fillText(fraMartinoNote[i], 30*i, 120);
+          window.parent.context.fillText(window.parent.frequencyToNote(fraMartino[i][0]), 30*i, 120);
         }
       }
     }
@@ -217,10 +235,15 @@ function Debugger(){
         else  {
           console.log("SUONA ", suona.length);
           window.parent.glob3 = suona;
-          if (window.parent.tre) {
+          console.log("as", window.parent.where);
+          if (window.parent.where == 2) {
+              tutorial(suona, false);
+          } else if (window.parent.where == 3) {
               tutorial(suona, true);
-          } else {
-            tutorial(suona, false);
+          } else if (window.parent.where == 4) {
+              //funzione che scrive pentagramma
+              console.log("RGE");
+              scriviPentagramma(suona);
           }
 
         }

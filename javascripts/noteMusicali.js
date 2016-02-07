@@ -87,6 +87,7 @@
   /*
    do · re · mi · fa · sol · la · si
    C     D    E    F     G    A     B
+   9     7    5    4     2    0     -2
   */
   var dictionaryParser = {
     "do_4": simHertz(440.0*Math.pow(Math.pow(2, 1.0/12), -9)),
@@ -118,5 +119,15 @@
     "pausa": simHertz(0, 0.0001)
   };
 
-// var mario = "mi5 mi5 mi5 do5 mi5 sol5 pausa sol pausa do5 pausa sol pausa mi pausa la si #sol la pausa sol mi5 sol5 la5 fa5 sol5 mi5 do5 re5 si do5 pausa sol pausa mi la si #sol la pausa sol mi5 sol5 la5 fa5 sol5 mi5 do5 re5 si pausa sol5 \#fa5 fa5 re5 mi5 #sol la do5 pausa la do5 re5 sol5 \#fa5 fa5 re5 mi5 do6 do6 do6 pausa sol5 \#fa5  fa5 re5 mi5 #sol la do5 pausa la do5 re5 pausa  #do5 re5 pausa do5 pausa do5 do5 do5 do5 re5 mi5 do5 la sol pausa do5 do5 do5 do5 re5 mi5 pausa do5 do5 do5 do5 re5 mi5 do5 la sol mi5 mi5 mi5 do5 sol5 pausa sol mi5 do5";
-var mario = "mi5 mi5 mi5 do5 mi5 sol5 pausa sol pausa do5 pausa sol pausa mi pausa la si #sol la pausa sol mi5 sol5 la5 fa5 sol5 mi5 do5 re5 si do5 pausa sol pausa mi la si #sol la pausa";
+  function frequencyToNote(y){
+    var number = Math.round(40 - 17.3123 * Math.log(4434.92/y));
+    var note = ["si", "", "la", "", "sol", "", "fa", "mi", "", "re", "", "do"];
+    var i = 0;
+    while (i < note.length) {
+      if ((number+i-2)%12 === 0) {
+        return note[i];
+      }
+      i++;
+    }
+    return "Non conosco la nota";
+  }

@@ -4,15 +4,14 @@
         <script src="../javascripts/jquery-1.11.3.min.js"></script>
         <script src="../javascripts/DebuggerDue.js"></script>
         <script type="text/javascript">
-            window.onload = function() {
-              	window.parent.canvas = document.getElementById("drawing");
-              	window.parent.context = window.parent.canvas.getContext("2d");
+        window.onload = function() {
+          	window.parent.canvas = document.getElementById("drawing");
+          	window.parent.context = window.parent.canvas.getContext("2d");
+          }
 
-                tutorial([], true);
-              }
         </script>
         <p>
-          Tutorial TRE
+          Ora prova tu
         </p>
         <div class="inner1">
           <textarea id="textareaDUE" style="resize: none; width: 600px; height: 200px;" rows="4" cols="50"></textarea>
@@ -31,7 +30,7 @@
           <input type="button" value="si" onclick="document.getElementById('textareaDUE').value += ' suona(493.88 , 1/4)'; Debugger();" />
         </div>
 
-        <table width="200">
+        <table width="200" style="display: none;">
         <tr>
           <th>Figura</th>
           <th>Semibreve</th>
@@ -91,6 +90,6 @@
         <td>1/64</td>
       </tr>
     </table>
-    <img src="../images/tutorial/scala.png"  width="534" height="113">
+    <!-- <img src="../images/tutorial/scala.png"  width="534" height="113"> -->
 </body>
 </html>

@@ -1,6 +1,5 @@
 var stoSuonando = false;
 
-
 function riproduciRunTime(data){
   try{
     stoSuonando = true;
@@ -45,7 +44,6 @@ function checkNota(probabileNota){ // torna true se NON è una nota
 
 function suona(){
   if (window.glob || stoSuonando) {
-    console.log("if in suona " + window.glob + " " + stoSuonando);
     return;
   }
 
@@ -53,7 +51,6 @@ function suona(){
   var listaMusicaFinale = [];
 
   for (var i = 0; i < arrayNote.length; i++) {
-
     listaMusicaFinale.push(dictionaryParser[arrayNote[i]]);
   }
 
@@ -64,12 +61,10 @@ function suona(){
 
 function suonaRunTime(){
   if (window.glob || stoSuonando) {
-    console.log("if in suona " + window.glob + " " + stoSuonando);
     return;
   }
 
   var arrayNote = window.parent.glob3;
-  console.log("suonaRunTime", arrayNote);
   riproduciRunTime(simHertzRunTime(arrayNote));
 
 }

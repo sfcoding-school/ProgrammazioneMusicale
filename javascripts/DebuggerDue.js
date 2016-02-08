@@ -15,7 +15,7 @@ var periodo = {
   "0.25": "Semiminima"
 };
 
-function scriviPentagramma(arraySuona){
+function scriviPentagramma(arraySuona, troppeNote){
   window.parent.context.clearRect(0, 0, window.parent.canvas.width, window.parent.canvas.height); // pulisce la canvas
   for(var i=20; i<120; i=i+20){
     window.parent.context.moveTo(0, i);
@@ -23,14 +23,17 @@ function scriviPentagramma(arraySuona){
   }
   window.parent.context.stroke(); // disegna effettivamente le righe
 
-  for (i = 0; i < arraySuona.length; i++) {
-    console.log("asada", periodo[arraySuona[i][1].toString()]);
+  for (i = 0 + troppeNote; i < arraySuona.length; i++) {
     var img = document.getElementById(periodo[arraySuona[i][1].toString()]);
     var k = note[arraySuona[i][0].toString()];
     if (arraySuona[i][1] == 1) {
       k = note[arraySuona[i][0].toString()] - 36;
     }
-    window.parent.context.drawImage(img, 30*i, 76-k, img.width, img.height);
+    window.parent.context.drawImage(img, 30*(i-troppeNote), 76-k, img.width, img.height);
+  }
+
+  if (arraySuona.length - troppeNote > 17) {
+    scriviPentagramma(arraySuona, troppeNote + 1);
   }
 }
 
@@ -93,170 +96,150 @@ function matchExact(r, str) {
 function Debugger(){
   window.parent.glob3 = [];
 
-    //if (this.value !== $this.data("oldValue")) {
-        var booleano = true;
-        var head = "";
-        var tail = document.getElementById("textareaDUE").value;
-        var suona = [];
+  var booleano = true;
+  var head = "";
+  var tail = document.getElementById("textareaDUE").value;
+  var suona = [];
 
-        tail.toLowerCase();
-        tail = tail.replace(/ripeti/g,"@");
+  tail.toLowerCase();
+  tail = tail.replace(/ripeti/g,"@");
 
-        //console.log("tailFOR ", tail)
+  while (tail.indexOf("@")!= -1){
+    var startRipeti = tail.lastIndexOf("@");
+    var endRipeti;
+    var toAdd = "";
+    for (var i = startRipeti; i < tail.length; i++) {
+      if (tail[i]=="]"){
+        endRipeti = i;
+        break;
+      }
+    }
+    var ripeti = tail.substring(startRipeti+1,endRipeti);
+    var temp = ripeti.split("-");
+    var iterator;
 
-        while (tail.indexOf("@")!= -1){
-          var startRipeti = tail.lastIndexOf("@");
-          var endRipeti;
-          var toAdd = "";
-          for (var i = startRipeti; i < tail.length; i++) {
-            if (tail[i]=="]"){
-              endRipeti = i;
-              break;
-            }
-          }
-          var ripeti = tail.substring(startRipeti+1,endRipeti);
-          var temp = ripeti.split("-");
-          var iterator;
-
-          //console.log("tailFOR ", ripeti)
-          if (temp.length != 2){
-            booleano = false;
-            break;
-          } else {
-            temp[1] = temp[1].replace( /[^\d.]/g, '' );
-            iterator = parseInt(temp[1]);
-            //console.log("tailFOR ", iterator)
-            if (isNaN(iterator)){
-              booleano = false;
-              break;
-            }
+    if (temp.length != 2){
+      booleano = false;
+      break;
+    } else {
+      temp[1] = temp[1].replace( /[^\d.]/g, '' );
+      iterator = parseInt(temp[1]);
+      if (isNaN(iterator)){
+        booleano = false;
+        break;
+      }
 
 
-            if (temp[0].indexOf("[")!= -1){
-              temp[0] = temp[0].replace("("," ");
-              temp[0] = temp[0] + " ";
-            } else {
-              booleano = false;
-              break;
-            }
-          }
+      if (temp[0].indexOf("[")!= -1){
+        temp[0] = temp[0].replace("("," ");
+        temp[0] = temp[0] + " ";
+      } else {
+        booleano = false;
+        break;
+      }
+    }
 
-          for (i = 0; i < iterator; i++){
-            toAdd += temp[0];
-          }
+    for (i = 0; i < iterator; i++){
+      toAdd += temp[0];
+    }
+    tail = tail.substring(0,startRipeti -1) + toAdd + tail.substring(endRipeti+1,tail.length);
+  }
 
-          tail = tail.substring(0,startRipeti -1) + toAdd + tail.substring(endRipeti+1,tail.length);
-          //console.log("tailFOR ", tail)
+  tail = tail.replace(/suona/g,"#");
 
-         console.log("sopra ", tail);
-        }
+  while (tail.indexOf("#")!= -1){
+    var startRipeti = tail.indexOf("#");
+    var endRipeti;
+    var toAdd = "";
+    for (var i = startRipeti; i < tail.length; i++) {
+      if (tail[i]==")"){
+        endRipeti = i;
+        break;
+      }
+    }
 
-        tail = tail.replace(/suona/g,"#");
+    if (tail[startRipeti+1] != "(" || tail[endRipeti] != ")"){
+      booleano = false;
+      break;
+    }
 
-        console.log("suona ", tail);
+    var ripeti = tail.substring(startRipeti+2, endRipeti);
+    var temp = ripeti.split(",");
+    var frequenza;
+    var durata;
 
-        while (tail.indexOf("#")!= -1){
-          console.log("a");
-          var startRipeti = tail.indexOf("#");
-          var endRipeti;
-          var toAdd = "";
-          for (var i = startRipeti; i < tail.length; i++) {
-            if (tail[i]==")"){
-              endRipeti = i;
-              break;
-            }
-          }
+    if (temp.length != 2){
+      booleano = false;
+      break;
+    } else {
 
-          if (tail[startRipeti+1] != "(" || tail[endRipeti] != ")"){
-            booleano = false;
-            break;
-          }
+      temp[0] = temp[0].replace( /[^\d.]/g, '' );
+      frequenza = parseFloat(temp[0]);
+      if (isNaN(frequenza)){
+        booleano = false;
+        break;
+      }
 
-          var ripeti = tail.substring(startRipeti+2, endRipeti);
-          var temp = ripeti.split(",");
-          var frequenza;
-          var durata;
+      var secondoSplit = temp[1].split("/");
+      var numeratore = parseInt(secondoSplit[0]);
+      if (secondoSplit.length < 2){
+        booleano = false;
+        break;
+      }
+      secondoSplit[1] = secondoSplit[1].replace( /[\s]/, '@' );
+      secondoSplit[1] = secondoSplit[1].replace(/[\s]/g, '' );
+      terzoSplit = secondoSplit[1].split("@");
+      var denominatore = parseInt(terzoSplit[0]);
+      if (terzoSplit.length > 1 && terzoSplit[1] !== "t" && terzoSplit[1] !== ""){
+        booleano = false;
+        break;
+      }
 
-          console.log("tailFOR ", ripeti);
-          if (temp.length != 2){
-            booleano = false;
-            break;
-          } else {
+      if (isNaN(numeratore) || isNaN(denominatore) || denominatore === 0){
+        booleano = false;
+        break;
+      } else {
+        durata = numeratore/denominatore;
+      }
+    }
 
-            temp[0] = temp[0].replace( /[^\d.]/g, '' );
-            frequenza = parseFloat(temp[0]);
-            //console.log("tailFOR ", iterator)
-            if (isNaN(frequenza)){
-              booleano = false;
-              break;
-            }
+    tail = tail.substring(0,startRipeti -1) + tail.substring(endRipeti+1,tail.length);
+    suona.push([frequenza,durata]);
 
-            var secondoSplit = temp[1].split("/");
-            var numeratore = parseInt(secondoSplit[0]);
-            if (secondoSplit.length < 2){
-              booleano = false;
-              break;
-            }
-            secondoSplit[1] = secondoSplit[1].replace( /[\s]/, '@' );
-            //console.log("controllo denominatore ", secondoSplit[1])
-            secondoSplit[1] = secondoSplit[1].replace(/[\s]/g, '' );
-            //console.log("controllo denominatore ", secondoSplit[1])
-            terzoSplit = secondoSplit[1].split("@");
-            console.log("controllo denominatore ", terzoSplit);
-            var denominatore = parseInt(terzoSplit[0]);
-            if (terzoSplit.length > 1 && terzoSplit[1] !== "t" && terzoSplit[1] !== ""){
-              booleano = false;
-              break;
-            }
+    if (tail.indexOf("#") == -1){
+      tail = tail.replace(/[\s]/g, '' );
+      if (tail.length > 0){
+        booleano = false;
+        break;
+      }
+    }
+  }
 
-            if (isNaN(numeratore) || isNaN(denominatore) || denominatore === 0){
-              booleano = false;
-              break;
-            } else {
-              durata = numeratore/denominatore;
-            }
-          }
+  if (suona.length === 0) booleano = false;
+  else  {
+    console.log("LunghezzaArraySuona: ", suona.length);
+    window.parent.glob3 = suona;
+    console.log("IDFRAME: ", window.parent.where);
+    if (window.parent.where == 2) {
+        tutorial(suona, false);
+    } else if (window.parent.where == 3) {
+        tutorial(suona, true);
+    } else if (window.parent.where == 4) {
+        //funzione che scrive pentagramma
+        scriviPentagramma(suona, 0);
+    }
 
-          tail = tail.substring(0,startRipeti -1) + tail.substring(endRipeti+1,tail.length);
-          suona.push([frequenza,durata]);
+  }
 
-          if (tail.indexOf("#") == -1){
-            tail = tail.replace(/[\s]/g, '' );
-            console.log("tail uscita ", tail);
-            if (tail.length > 0){
-              console.log("tail uscita ", tail.length);
-              booleano = false;
-              break;
-            }
-          }
-        }
-
-        if (suona.length === 0) booleano = false;
-        else  {
-          console.log("SUONA ", suona.length);
-          window.parent.glob3 = suona;
-          console.log("as", window.parent.where);
-          if (window.parent.where == 2) {
-              tutorial(suona, false);
-          } else if (window.parent.where == 3) {
-              tutorial(suona, true);
-          } else if (window.parent.where == 4) {
-              //funzione che scrive pentagramma
-              console.log("RGE");
-              scriviPentagramma(suona);
-          }
-
-        }
-
-        if (booleano) {
-            $("#errore").html("");
-            $("#ok").html("OK!");
-            window.glob = false;
-        }else{
-            $("#errore").html("Errore!");
-            $("#ok").html("");
-            window.glob = true;
-        }
+  if (booleano) {
+      $("#errore").html("");
+      $("#ok").html("OK!");
+      window.glob = false;
+  }else{
+      $("#errore").html("Errore!");
+      $("#ok").html("");
+      window.glob = true;
+  }
 }
 
 $(window).load(function(){

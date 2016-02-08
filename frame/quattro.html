@@ -7,6 +7,8 @@
         window.onload = function() {
           	window.parent.canvas = document.getElementById("drawing");
           	window.parent.context = window.parent.canvas.getContext("2d");
+
+            scriviPentagramma([], 0)
           }
 
         </script>
@@ -28,6 +30,35 @@
           <input type="button" value="sol" onclick="document.getElementById('textareaDUE').value += ' suona(392.00 , 1/4)'; Debugger();" />
           <input type="button" value="la" onclick="document.getElementById('textareaDUE').value += ' suona(440.00 , 1/4)'; Debugger();" />
           <input type="button" value="si" onclick="document.getElementById('textareaDUE').value += ' suona(493.88 , 1/4)'; Debugger();" />
+        </div>
+        <div class="inner2">
+            <br><br>
+            Per comprendere meglio questo concetto di rapporto di durata tra figure e pause musicali prova a fare un piccolo
+            gioco che ci tornerà utile nella prossima lezione. <br>
+            Prendi una mela e la paragoniamo ala durata della semibreve, se dividi la mela in due ogni metà rappresenta una minima;
+            dividi ogni metà in due e ogni spicchio rappresenta la durata della semiminima;<br> ora se dividi ogni spicchio in due
+            ottieni una mela in otto parti e questo nuovo spicchio rappresenta la croma;<br> hai davanti a te otto spicchi di mela,
+            dividi ognuno di loro in due e trovi la semicroma;<br> metti a prova la tua abilità e dividi ancora in due i sedici spicchi della mela, questa volta ogni spicchio
+            rappresenta la durata della biscroma;<br> un altro sforzo d'abilità e i trentadue spicchi li dividi ancora a metà,
+            hai trovato la semibiscroma, se hai fatto bene tutte le operazioni di taglio dovresti avere sessantaquattro spicchi.
+            Ora se prendi due di questi spicchi e li unisci otterrai una biscroma; se ne unisci quattro avrai composto la durata
+            di una semicroma;<br> mettine insieme otto e avrai una croma; ora continua questa composizione con sedici spicchi,
+            sei arrivato a un quarto di mela e quindi alla semiminima; con trentadue spicchi hai composto il valore della minima;
+            con sessantaquattro ottieni il valore intero della semibreve. <br>
+            Queste sono frazioni, sette sono i valori delle figure con i quali si possono ottenere una elevata serie di combinazioni,
+            facendo un esempio pratico (tieni bene a mente la divisione della mela):
+            una semibreve può essere uguale a una mimina e due semiminime,<br>
+            <img src="../images/note/Semibreve.gif"> = <img src="../images/note/Minima.gif"> +
+                                                                      <img src="../images/note/Semiminima.gif"> +
+                                                                      <img src="../images/note/Semiminima.gif">
+            <br>Vale a dire in termini matematici che 4/4=2/4+1/4+1/4.<br>
+            Oppure una minima può avere il valore di una croma, più una semiminima, più due biscrome.<br>
+            <img src="../images/note/Minima.gif"> = <img src="../images/note/Croma.gif"> +
+                                                       <img src="../images/note/Semiminima.gif"> +
+                                                       <img src="../images/note/Biscroma.gif"> +
+                                                       <img src="../images/note/Biscroma.gif"><br>
+            Tenendo d'occhio la matematica si ha che 2/4=1/8+1/4+1/16+1/16.<br>E tante altre combinazioni si possono fare!
+
         </div>
 
         <table width="200" style="display: none;">

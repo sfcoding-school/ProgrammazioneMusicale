@@ -1,46 +1,13 @@
-
-  // function makeListWave(hertz, giri){
-  //   giri = typeof giri !== 'undefined' ? giri : 5000;
-  //   var data = [];
-  //   var i = 0;
-  //   while (i<5000) { // la grandezza determina la durata .. sarebbe da metterci la variabile giri
-  //     var t = i/wave.header.sampleRate;
-  //     data[i++] = 128+Math.round(127*Math.sin(hertz*t*2*Math.PI));
-  //   }
-  //   return data;
-  // }
-
-
-//   $(window).load(function(){
-//   $("#idTextAreaDurata").keyup(function() {
-//         var $this = $(this);
-//         var temp = (this.value)
-//         temp = parseInt(temp)
-//         if (!isNaN(temp)){
-//           window.globDurata = parseFloat(temp);
-//           console.log("ho cambiato t")
-//         }else {
-//           window.glob = false
-//         }
-//
-//   });
-// });
-
-
-
-
-  function simHertzRunTime(noteList) {
+function simHertzRunTime(noteList) {
 
     var tempoGlobale = document.getElementById('content1').contentWindow.document.getElementById('idTextAreaDurata').value;
-    console.log("tempoGlobale " + tempoGlobale);
-    console.log(noteList);
     var audio = new Audio();
     var wave = new RIFFWAVE();
     wave.header.sampleRate = 44100;
 
-      // Set sample rate to 44KHz  In digital audio, 44,100 Hz
-      //(alternately represented as 44.1 kHz) is a common sampling frequency. Analog audio is recorded by
-      //sampling it 44,100 times per second, and then these samples are used to reconstruct the audio signal when playing it back.
+    // Set sample rate to 44KHz  In digital audio, 44,100 Hz
+    //(alternately represented as 44.1 kHz) is a common sampling frequency. Analog audio is recorded by
+    //sampling it 44,100 times per second, and then these samples are used to reconstruct the audio signal when playing it back.
 
     wave.header.numChannels = 1;
     var data = [];
@@ -50,17 +17,16 @@
       s_prec = 0;
       if (j !== 0) s_prec = noteList[j-1][1]*tempoGlobale;
       var i = 0;
-      while (i< wave.header.sampleRate * s) { // la grandezza determina la durata .. la formula giusta dovrebbe essere wave.header.sampleRate * s
+      while (i< wave.header.sampleRate * s) {
         var t = i/wave.header.sampleRate;
         data[(wave.header.sampleRate * s_prec * j) + i] = 128+Math.round(127*Math.sin(hz*t*2*Math.PI)); // 127 è l'ampiezza del segnale
         i++;
       }
     }
 
-      wave.Make(data);
-      audio.src = wave.dataURI;
-      return audio;
-
+    wave.Make(data);
+    audio.src = wave.dataURI;
+    return audio;
   }
 
   function simHertz(hz, s) {
@@ -72,9 +38,8 @@
       //sampling it 44,100 times per second, and then these samples are used to reconstruct the audio signal when playing it back.
       wave.header.numChannels = 1;
       var data = [];
-
       var i = 0;
-      while (i< wave.header.sampleRate * s) { // la grandezza determina la durata .. la formula giusta dovrebbe essere wave.header.sampleRate * s
+      while (i< wave.header.sampleRate * s) {
         var t = i/wave.header.sampleRate;
         data[i++] = 128+Math.round(127*Math.sin(hz*t*2*Math.PI)); // 127 è l'ampiezza del segnale
       }
@@ -124,6 +89,9 @@
     var note = ["si", "", "la", "", "sol", "", "fa", "mi", "", "re", "", "do"];
     var i = 0;
     while (i < note.length) {
+      // cerco, dato l'esponente, di ricavare quale nota sia, il "-2" è dato dal fatto
+      // che l'esponente minore in scala 4 parte da -2 (vedi commento sopra)
+      // quindi i-2 è l'esponente da provare
       if ((number+i-2)%12 === 0) {
         return note[i];
       }

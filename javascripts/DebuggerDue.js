@@ -220,7 +220,11 @@ function Debugger(){
     console.log("LunghezzaArraySuona: ", suona.length);
     window.parent.glob3 = suona;
     console.log("IDFRAME: ", window.parent.where);
-    if (window.parent.where == 2) {
+    
+
+  }
+  
+  if (window.parent.where == 2) {
         tutorial(suona, false);
     } else if (window.parent.where == 3) {
         tutorial(suona, true);
@@ -228,8 +232,6 @@ function Debugger(){
         //funzione che scrive pentagramma
         scriviPentagramma(suona, 0);
     }
-
-  }
 
   if (booleano) {
       $("#errore").html("");

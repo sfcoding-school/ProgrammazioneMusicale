@@ -52,7 +52,9 @@
       var i = 0;
       while (i< wave.header.sampleRate * s) { // la grandezza determina la durata .. la formula giusta dovrebbe essere wave.header.sampleRate * s
         var t = i/wave.header.sampleRate;
-        data[(wave.header.sampleRate * s_prec * j) + i] = 128+Math.round(127*Math.sin(hz*t*2*Math.PI)); // 127 è l'ampiezza del segnale
+        //data[(wave.header.sampleRate * s_prec * j) + i] = 128+Math.round(127*Math.sin(hz*t*2*Math.PI)); // 127 è l'ampiezza del segnale
+
+        data.push(128+Math.round(127*Math.sin(hz*t*2*Math.PI)))
         i++;
       }
     }

@@ -113,7 +113,7 @@ $(window).load(function(){
 
 
               if (temp[0].indexOf("[")!= -1){
-                temp[0] = temp[0].replace("("," ")
+                temp[0] = temp[0].replace("["," ")
                 temp[0] = temp[0] + " "
               } else {
                 booleano = false

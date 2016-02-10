@@ -1,18 +1,22 @@
 var note = {
-  "261.63": 0,
-  "293.66": 10,
-  "329.63": 20,
-  "349.23": 30,
-  "392": 40,
-  "440": 50,
-  "493.88": 60,
-  "523.25": 70
+  "261.63": -10,
+  "293.66": 0,
+  "329.63": 10,
+  "349.23": 20,
+  "392": 30,
+  "440": 40,
+  "493.88": 50,
+  "523.25": 60
 };
 
 var periodo = {
   "1": "Semibreve",
   "0.5": "Minima",
-  "0.25": "Semiminima"
+  "0.25": "Semiminima",
+  "0.125": "Croma",
+  "0.0625" : "Semicroma",
+  "0.03125": "Biscroma",
+  "0.015625": "Semibiscroma"
 };
 
 function scriviPentagramma(arraySuona, troppeNote){
@@ -48,11 +52,13 @@ function tutorial(arraySuona, tutTRE){
       window.parent.context.clearRect(0, 0, window.parent.canvas.width, window.parent.canvas.height); // pulisce la canvas
       $("#divError").text("");
       // Creazione delle righe del pentagramma
-      for(var i=20; i<120; i=i+20){
+      for(var i=30; i<120; i=i+20){
         window.parent.context.moveTo(0, i);
         window.parent.context.lineTo(window.parent.canvas.width, i);
       }
       window.parent.context.stroke(); // disegna effettivamente le righe
+      var img = document.getElementById("ChiaveViolino");
+      window.parent.context.drawImage(img, 0, 3, img.width, img.height);
 
       for (i = 0; i < fraMartino.length; i++) {
         // Carica e mette l'immagine della nota
@@ -76,12 +82,12 @@ function tutorial(arraySuona, tutTRE){
         if (fraMartino[i][1] == 1) {
           k = note[fraMartino[i][0].toString()] - 36;
         }
-        window.parent.context.drawImage(img, 30*i, 76-k, img.width, img.height);
+        window.parent.context.drawImage(img, 45+30*i, 76-k, img.width, img.height);
 
         if (!tutTRE) {
           // Scrive il nome della nota in fondo
           window.parent.context.font = "10px Arial";
-          window.parent.context.fillText(window.parent.frequencyToNote(fraMartino[i][0]), 30*i, 120);
+          window.parent.context.fillText(window.parent.frequencyToNote(fraMartino[i][0]), 45 + 30*i, 120);
         }
       }
     }
@@ -224,23 +230,22 @@ function Debugger(){
 
   }
   
-  if (window.parent.where == 2) {
+
+  if (booleano) {
+      window.parent.glob = false;
+      if (window.parent.where == 2) {
         tutorial(suona, false);
-    } else if (window.parent.where == 3) {
+      } else if (window.parent.where == 3) {
         tutorial(suona, true);
-    } else if (window.parent.where == 4) {
+      } else if (window.parent.where == 4) {
         //funzione che scrive pentagramma
         scriviPentagramma(suona, 0);
     }
-
-  if (booleano) {
-      $("#errore").html("");
-      $("#ok").html("OK!");
-      window.glob = false;
   }else{
-      $("#errore").html("Errore!");
-      $("#ok").html("");
-      window.glob = true;
+      console.log(suona.length)
+      $("#divError").text("Hai scritto qualcosa che non è una nota!");
+      window.parent.glob = true;
+      //tutorial([], false);
   }
 }
 

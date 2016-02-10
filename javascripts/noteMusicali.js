@@ -14,12 +14,10 @@ function simHertzRunTime(noteList) {
     for (var j = 0; j < noteList.length; j++) {
       hz = noteList[j][0];
       s = noteList[j][1] * tempoGlobale;
-      s_prec = 0;
-      if (j !== 0) s_prec = noteList[j-1][1]*tempoGlobale;
       var i = 0;
       while (i< wave.header.sampleRate * s) {
         var t = i/wave.header.sampleRate;
-        data[(wave.header.sampleRate * s_prec * j) + i] = 128+Math.round(127*Math.sin(hz*t*2*Math.PI)); // 127 è l'ampiezza del segnale
+        data.push(128+Math.round(127*Math.sin(hz*t*2*Math.PI)))
         i++;
       }
     }

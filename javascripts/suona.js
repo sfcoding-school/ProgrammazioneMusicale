@@ -60,7 +60,7 @@ function suona(){
 }
 
 function suonaRunTime(){
-  if (window.glob || stoSuonando) {
+  if (window.parent.glob || stoSuonando) {
     return;
   }
 

@@ -32,6 +32,37 @@
       window.canvas = null;
       window.context = null;
       window.where = 0;
+      
+
+      window.onbeforeunload = function(event)
+      {
+
+      localStorage.setItem("where", window.where);
+      //console.log(localStorage.getItem("where"))
+      }
+
+      window.onload = function(event)
+    {
+        //console.log("adfs" + localStorage.getItem("where"))
+        if (localStorage.getItem("where")=="null") {
+           window.where = 0
+           document.getElementById('content1').src = "frame/main.html";
+        }else{window.where = localStorage.getItem("where");
+           if (window.where ==0) {
+            document.getElementById('content1').src = "frame/main.html";
+          }else if (window.where ==1) {
+            document.getElementById('content1').src = "frame/uno.html";
+          }else if (window.where ==2) {
+            document.getElementById('content1').src = "frame/due.html";
+          }else if (window.where ==3) {
+            document.getElementById('content1').src = "frame/tre.html";
+          }else if (window.where ==4) {
+            document.getElementById('content1').src = "frame/quattro.html";
+          };
+      };
+          
+      
+    }
 
       function resizeIframe(obj) {
         obj.style.height = obj.contentWindow.document.body.scrollHeight + 50 + 'px';
@@ -93,7 +124,7 @@
         <ul></ul>
       </nav>
       <section>
-          <iframe frameborder="0" scrolling="no" onload="resizeIframe(this)" id="content1" src="frame/main.html" width="900" height="auto"></iframe>
+          <iframe frameborder="0" scrolling="no" onload="resizeIframe(this)" id="content1"  width="900" height="auto"></iframe>
           <div class="inner2">
 
 
@@ -101,7 +132,7 @@
     </div>  </section>
       <footer>
         <p>Project maintained by <a href="https://github.com/sfcoding-school">sfcoding-school</a></p>
-        <!-- <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a> modified by <a href="https://github.com/sfcoding-school">sfcoding-school</a></small></p> -->
+        <!-- <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a> modified by <a href="https://github.com/sfcoding-school">sfcoding-school</a></small></p> src="frame/main.html"-->
       </footer>
     </div>
   </body>

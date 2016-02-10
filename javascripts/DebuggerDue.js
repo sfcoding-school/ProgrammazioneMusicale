@@ -107,7 +107,7 @@ function Debugger(){
   var tail = document.getElementById("textareaDUE").value;
   var suona = [];
 
-  tail.toLowerCase();
+ tail = tail.toLowerCase();
   tail = tail.replace(/ripeti/g,"@");
 
   while (tail.indexOf("@")!= -1){
@@ -226,10 +226,10 @@ function Debugger(){
     console.log("LunghezzaArraySuona: ", suona.length);
     window.parent.glob3 = suona;
     console.log("IDFRAME: ", window.parent.where);
-    
+
 
   }
-  
+
 
   if (booleano) {
       window.parent.glob = false;

@@ -14,15 +14,6 @@
     <script src="javascripts/suona.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <style type="text/css">
-      .inner1{
-        float:left;
-      }
-      .inner2{
-        float:left;
-        clear: left;
-      }
-    </style>
   </head>
   <body>
     <script type="text/javascript" >
@@ -32,22 +23,18 @@
       window.canvas = null;
       window.context = null;
       window.where = 0;
-      
 
-      window.onbeforeunload = function(event)
-      {
 
-      localStorage.setItem("where", window.where);
-      //console.log(localStorage.getItem("where"))
+      window.onbeforeunload = function(event){
+        localStorage.setItem("where", window.where);
       }
 
-      window.onload = function(event)
-    {
-        //console.log("adfs" + localStorage.getItem("where"))
+      window.onload = function(event){
         if (localStorage.getItem("where")=="null") {
            window.where = 0
            document.getElementById('content1').src = "frame/main.html";
-        }else{window.where = localStorage.getItem("where");
+        }else{
+           window.where = localStorage.getItem("where");
            if (window.where ==0) {
             document.getElementById('content1').src = "frame/main.html";
           }else if (window.where ==1) {
@@ -59,9 +46,7 @@
           }else if (window.where ==4) {
             document.getElementById('content1').src = "frame/quattro.html";
           };
-      };
-          
-      
+        };
     }
 
       function resizeIframe(obj) {

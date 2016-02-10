@@ -12,7 +12,7 @@ $(window).load(function(){
     var tail = (this.value);
     var suona = [];
 
-    tail.toLowerCase();
+    tail = tail.toLowerCase();
     tail = tail.replace(/ripeti/g,"@");
 
     while (tail.indexOf("@")!= -1){
@@ -90,6 +90,16 @@ $(window).load(function(){
       tail = tail.substring(1,tail.length);
     }
 
-    window.parent.glob2 = suona;
+    if (booleano) {
+      $("#divError").text("");
+      window.parent.glob = false;
+      window.parent.glob2 = suona;
+    } else {
+      window.parent.glob = true;
+      $("#divError").text("Errore");
+    }
+
+
+
   });
 });

@@ -43,11 +43,13 @@ function checkNota(probabileNota){ // torna true se NON è una nota
 }
 
 function suona(){
-  if (window.glob || stoSuonando) {
+  if (window.parent.glob || stoSuonando) {
+    console.log(window.parent.glob);
     return;
   }
 
   var arrayNote = window.glob2;
+  console.log(arrayNote);
   var listaMusicaFinale = [];
 
   for (var i = 0; i < arrayNote.length; i++) {

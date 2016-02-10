@@ -35,16 +35,18 @@
            document.getElementById('content1').src = "frame/main.html";
         }else{
            window.where = localStorage.getItem("where");
-           if (window.where ==0) {
+           if (window.where == 0) {
             document.getElementById('content1').src = "frame/main.html";
-          }else if (window.where ==1) {
+          } else if (window.where == 1) {
             document.getElementById('content1').src = "frame/uno.html";
-          }else if (window.where ==2) {
+          } else if (window.where == 2) {
             document.getElementById('content1').src = "frame/due.html";
-          }else if (window.where ==3) {
+          } else if (window.where == 3) {
             document.getElementById('content1').src = "frame/tre.html";
-          }else if (window.where ==4) {
+          } else if (window.where == 4) {
             document.getElementById('content1').src = "frame/quattro.html";
+          } else if (window.where == 5) {
+            document.getElementById('content1').src = "frame/cinque.html";
           };
         };
     }
@@ -63,9 +65,12 @@
         } else if ((document.getElementById('content1').src).indexOf("due") > -1) {
           document.getElementById('content1').src = "frame/tre.html";
           window.where = 3;
-        }  else if ((document.getElementById('content1').src).indexOf("tre") > -1) {
+        } else if ((document.getElementById('content1').src).indexOf("tre") > -1) {
           document.getElementById('content1').src = "frame/quattro.html";
           window.where = 4;
+        } else if ((document.getElementById('content1').src).indexOf("quattro") > -1) {
+          document.getElementById('content1').src = "frame/cinque.html";
+          window.where = 5;
         }
 
       }
@@ -83,6 +88,9 @@
         } else if ((document.getElementById('content1').src).indexOf("quattro") > -1) {
           document.getElementById('content1').src = "frame/tre.html";
           window.where = 3;
+        } else if ((document.getElementById('content1').src).indexOf("cinque") > -1) {
+          document.getElementById('content1').src = "frame/quattro.html";
+          window.where = 4;
         }
 
       }

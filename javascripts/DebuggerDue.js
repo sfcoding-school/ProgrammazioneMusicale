@@ -21,11 +21,13 @@ var periodo = {
 
 function scriviPentagramma(arraySuona, troppeNote){
   window.parent.context.clearRect(0, 0, window.parent.canvas.width, window.parent.canvas.height); // pulisce la canvas
-  for(var i=20; i<120; i=i+20){
+  for(var i=30; i<120; i=i+20){
     window.parent.context.moveTo(0, i);
     window.parent.context.lineTo(window.parent.canvas.width, i);
   }
   window.parent.context.stroke(); // disegna effettivamente le righe
+  var img = document.getElementById("ChiaveViolino");
+  window.parent.context.drawImage(img, 0, 3, img.width, img.height);
 
   for (i = 0 + troppeNote; i < arraySuona.length; i++) {
     var img = document.getElementById(periodo[arraySuona[i][1].toString()]);
@@ -33,7 +35,7 @@ function scriviPentagramma(arraySuona, troppeNote){
     if (arraySuona[i][1] == 1) {
       k = note[arraySuona[i][0].toString()] - 36;
     }
-    window.parent.context.drawImage(img, 30*(i-troppeNote), 76-k, img.width, img.height);
+    window.parent.context.drawImage(img, 45+ 30*(i-troppeNote), 76-k, img.width, img.height);
   }
 
   if (arraySuona.length - troppeNote > 17) {

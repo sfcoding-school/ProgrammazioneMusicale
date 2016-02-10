@@ -21,16 +21,28 @@
         </div>
         <div class="inner2">
           <div id="divError"></div>
+          <p>
+            <b>t</b> = 
           <input type="number" value="1" id="idTextAreaDurata" min="1" max="5">
-          <input type="button" value="do" onclick="document.getElementById('textareaDUE').value += ' suona(261.63 , 1/4)'; Debugger();" />
-          <input type="button" value="re" onclick="document.getElementById('textareaDUE').value += ' suona(293.66 , 1/4)'; Debugger();" />
-          <input type="button" value="mi" onclick="document.getElementById('textareaDUE').value += ' suona(329.63 , 1/4)'; Debugger();" />
-          <input type="button" value="fa" onclick="document.getElementById('textareaDUE').value += ' suona(349.23 , 1/4)'; Debugger();" />
-          <input type="button" value="sol" onclick="document.getElementById('textareaDUE').value += ' suona(392.00 , 1/4)'; Debugger();" />
-          <input type="button" value="la" onclick="document.getElementById('textareaDUE').value += ' suona(440.00 , 1/4)'; Debugger();" />
-          <input type="button" value="si" onclick="document.getElementById('textareaDUE').value += ' suona(493.88 , 1/4)'; Debugger();" />
-        </div>
+          <input type="button" value="do" onclick="document.getElementById('textareaDUE').value += ' suona(261.63 , 1/4 t)'; Debugger();" />
+          <input type="button" value="re" onclick="document.getElementById('textareaDUE').value += ' suona(293.66 , 1/4 t)'; Debugger();" />
+          <input type="button" value="mi" onclick="document.getElementById('textareaDUE').value += ' suona(329.63 , 1/4 t)'; Debugger();" />
+          <input type="button" value="fa" onclick="document.getElementById('textareaDUE').value += ' suona(349.23 , 1/4 t)'; Debugger();" />
+          <input type="button" value="sol" onclick="document.getElementById('textareaDUE').value += ' suona(392.00 , 1/4 t)'; Debugger();" />
+          <input type="button" value="la" onclick="document.getElementById('textareaDUE').value += ' suona(440.00 , 1/4 t)'; Debugger();" />
+          <input type="button" value="si" onclick="document.getElementById('textareaDUE').value += ' suona(493.88 , 1/4 t)'; Debugger();" />
+        </p></div>
         <img width="50" height="140" id="ChiaveViolino" style="display: none;"  src="../images/note/ChiaveViolino.png">
+        
+
+
+        <p>
+          <p align="left"><font face="Times New Roman" size="4" color="#000000"> Come avrai notato, se cambi il valore di t (il tempo!) con le frecce, la durata di tutte le note aumenta! Questo dipende dal fatto che in verità la durata della nota più grande non è 1 ma <font color="#0000CF"><b>1 * t</b> </font>e quindi se aumento il tempo t di conseguenza aumenterà anche il tempo di tutte le frazione di <font color="#0000CF"><b>1 * t</b></font>. Una dicitura più corretta per scrivere le note sarebbe quindi del tipo <b>suona(261.63 , 1/4 <font color="#0000CF">t</font>)</b>, prova a scriverle così da ora in poi!
+          </font>
+        </p>
+        
+
+
         <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;}
 .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;border-top-width:1px;border-bottom-width:1px;}
@@ -84,20 +96,20 @@
 <img id="BiscromaF" style="display: none;"  src="../images/note/BiscromaF.gif">
 </td>
 <td class="tg-s6z2">
-<img width="15" height="50" id="Semibiscroma" src="../images/note/Semibiscroma.gif">
-<img width="15" height="50" style="display: none;" id="SemibiscromaT" src="../images/note/SemibiscromaT.gif">
-<img width="15" height="50" style="display: none;" id="SemibiscromaF" src="../images/note/SemibiscromaF.gif">
+<img width="25" height="50" id="Semibiscroma" src="../images/note/Semibiscroma.gif">
+<img width="25" height="50" style="display: none;" id="SemibiscromaT" src="../images/note/SemibiscromaT.gif">
+<img width="25" height="50" style="display: none;" id="SemibiscromaF" src="../images/note/SemibiscromaF.gif">
 </td>
 </tr>
 <tr>
 <td class="tg-9hbo">Valore</td>
-<td class="tg-baqh">1</td>
-<td class="tg-baqh">1/2</td>
-<td class="tg-baqh">1/4</td>
-<td class="tg-baqh">1/8</td>
-<td class="tg-baqh">1/16</td>
-<td class="tg-baqh">1/32</td>
-<td class="tg-baqh">1/64</td>
+<td class="tg-baqh">1 t</td>
+<td class="tg-baqh">1/2 t</td>
+<td class="tg-baqh">1/4 t</td>
+<td class="tg-baqh">1/8 t</td>
+<td class="tg-baqh">1/16 t</td>
+<td class="tg-baqh">1/32 t</td>
+<td class="tg-baqh">1/64 t</td>
 </tr>
 </table>
     <img src="../images/tutorial/scala.png"  width="534" height="113">

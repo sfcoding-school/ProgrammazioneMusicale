@@ -30,6 +30,7 @@
       }
 
       window.onload = function(event){
+        console.log(localStorage.getItem("where"));
         if (localStorage.getItem("where")=="null") {
            window.where = 0
            document.getElementById('content1').src = "frame/main.html";
@@ -96,7 +97,7 @@
       }
     </script>
       <header>
-        <a href="index.html"><h1>Programmazione Musicale</h1></a>
+        <a href="index.html" onclick="window.where = 0"><h1>Programmazione Musicale</h1></a>
         <p>[Modelli Geometrici]</p>
       </header>
 

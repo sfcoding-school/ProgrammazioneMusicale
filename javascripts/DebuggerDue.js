@@ -234,6 +234,7 @@ function Debugger(){
 
 
   if (booleano) {
+      $("#divError").text("Ok!");
       window.parent.glob = false;
       if (window.parent.where == 2) {
         tutorial(suona, false);

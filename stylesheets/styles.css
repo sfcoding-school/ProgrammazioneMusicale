@@ -912,6 +912,15 @@ footer {
     width: auto;
   }
 }
+
+div {
+  max-width: 1200px;
+}
+
+font {
+  max-width: 1100px;
+}
+
 @media print, screen and (max-width: 720px) {
   body {
     word-wrap: break-word;

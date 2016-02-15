@@ -87,8 +87,9 @@ function simHertzRunTime(noteList) {
     var note = ["si", "", "la", "", "sol", "", "fa", "mi", "", "re", "", "do"];
     var i = 0;
     while (i < note.length) {
-      // cerco, dato l'esponente, di ricavare quale nota sia, il "-2" è dato dal fatto
-      // che l'esponente minore in scala 4 parte da -2 (vedi commento sopra)
+      // cerco, dato l'esponente, di ricavare quale nota sia.
+      // Il "-2" è dato dal fatto che l'esponente minore in
+      // scala 4 parte da -2 (vedi commento sopra)
       // quindi i-2 è l'esponente da provare
       if ((number+i-2)%12 === 0) {
         return note[i];
